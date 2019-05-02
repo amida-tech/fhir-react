@@ -2,6 +2,16 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { compact, find, get, has } from 'lodash';
 // import { moment } from 'moment';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+  patient: {
+
+  },
+  patientTop: {
+    'margin-bottom': '5%'
+  },
+};
 
 class Address extends PureComponent {
     constructor(props) {
@@ -39,7 +49,7 @@ class Address extends PureComponent {
 }
 
 Address.propTypes = {
-    address: PropTypes.object,
+    address: PropTypes.array,
 };
   
-export default Address;
+export default withStyles(styles)(Address);

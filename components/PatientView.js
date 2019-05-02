@@ -4,14 +4,23 @@ import Address from './Address';
 import HumanName from './HumanName';
 import { find, get, has } from 'lodash';
 import moment from 'moment';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+  patient: {
+
+  },
+  patientTop: {
+    'margin-bottom': '5%'
+  },
+};
 
 class PatientView extends PureComponent {
     render() {
       const patientIdentifier = find(get(this.props, 'patient.identifier'), identifier => identifier.use === 'official').value;
-      console.log(this.props);
       return (
         <div className='patient'>
-          <div className='patient-top'>
+          <div className={this.props.classes.patientTop}>
             <div className='photo-body'> {
                 has(this.props, 'patient.photo') ? 
                   <img className='photo' src={get(this.props, 'patient.photo')}/> :
@@ -52,4 +61,4 @@ class PatientView extends PureComponent {
     patient: PropTypes.object,
 };
 
-export default PatientView;
+export default withStyles(styles)(PatientView);

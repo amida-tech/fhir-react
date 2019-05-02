@@ -3,6 +3,38 @@ import PropTypes from 'prop-types';
 import InfoDropdown from './InfoDropdown';
 import { find, get, has, replace } from 'lodash';
 import moment from 'moment';
+import { withStyles } from '@material-ui/core/styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+
+const styles = {
+  humanName: {
+    'display': 'flex',
+    'flex-direction': 'row',
+    'align-items': 'baseline',
+    'justify-content': 'space-between'
+  },
+  humanNamePanel: {
+    'display': 'flex',
+    'align-items': 'center'
+  },
+  humanNameField: {
+    'display': 'flex',
+    'flex-direction': 'column'
+  },
+  humanNameSpan: {
+    'margin': '0 2%',
+    'text-transform': 'capitalize'
+  },
+  divider: {
+    'display': 'block',
+    'width': '100%',
+    'border-top': '1px solid #ccc'
+  },
+  iconInfo: {
+    'color': '#D3D3D3'
+  }
+};
 
 class HumanName extends PureComponent {
     constructor(props) {
@@ -20,30 +52,28 @@ class HumanName extends PureComponent {
     
     render() {
       return(
-        <div className='humanname'>
-          <div className='field'>
-            <div className='humanname-panel'>
+        <div className={this.props.classes.humanName}>
+            <div className={this.props.classes.humanNamePanel}>
               <h2>Name: {this.patientName}</h2>
               <InfoDropdown>
                 {get(this.props, 'humanName').map((nameRecord, index) => 
                     <ul key={'humanName' + index}>
-                  <li className='humanname-field'>
-                    <span className='humanname-span capitalize'>
+                  <li className={this.props.classes.humanNameField}>
+                    <span className={this.props.classes.humanNameSpan}>
                       {get(nameRecord, 'use', 'N/A')} - {this.fullNames[index]}
                     </span>
-                    <span className='humanname-span'>
+                    <span className={this.props.classes.humanNameSpan}>
                       Period: {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')} to {has(nameRecord, 'period.end') ?
                       moment(get(nameRecord, 'period.end')).format('MM/DD/YYYY') :
                       'Present'}
                     </span>
-                    <span className='divider'/>
+                    <span className={this.props.classes.divider}/>
                     </li>
                   </ul>)
                 }
               </InfoDropdown>
             </div>
-            <i className='fas fa-info-circle fa icon-info' title={get(this.props, 'nameInfo')}/>
-          </div>
+            <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameInfo')}/>
           </div>
       );
     }
@@ -54,4 +84,4 @@ class HumanName extends PureComponent {
     nameInfo: PropTypes.string,
 }
   
-export default HumanName;
+export default withStyles(styles)(HumanName);

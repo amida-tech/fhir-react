@@ -1,12 +1,10 @@
 import React from 'react';
 import Patient from '../components/Patient';
-import PatientView from '../components/PatientView';
+import HumanName from '../components/HumanName';
 import { patient as Marion, info } from '../data/Marion';
-
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
-
 
 import { Button, Welcome } from '@storybook/react/demo';
 
@@ -20,7 +18,6 @@ storiesOf('Patient', module)
 
 storiesOf('PatientView', module)
   .add('WHADDUP', () => (
-    <PatientView
-      patient={Marion}
-      info={info}/>
+    <HumanName humanName={Marion.name} 
+      nameInfo={info.nameInfo}/>
   ));

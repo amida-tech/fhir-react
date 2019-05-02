@@ -1,5 +1,31 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+
+const styles = {
+  infoDropdown: {
+    'display': 'block',
+    'position': 'relative'
+  },
+  infoDropdownButton: {
+    'background': 'none',
+    'border': 'none',
+    'outline': 'none'
+  },
+  infoDropdownMenu: {
+    'display': 'block',
+    'position': 'absolute',
+    'background': 'white',
+    'border': '2px solid black',
+    'width': '300px',
+    'height': '150px',
+    'overflow-y': 'auto',
+    'right': 0,
+    'z-index': 1
+  }
+};
 
 class InfoDropdown extends PureComponent {
     constructor(props) {
@@ -24,15 +50,16 @@ class InfoDropdown extends PureComponent {
   
   render() {
   return (
-      <div className='info-dropdown'>
-      <button className='hidden-button' onClick={this.toggleShow}>
+      <div className={this.props.classes.infoDropdown}>
+      <button className={this.props.classes.infoDropdownButton}
+        onClick={this.toggleShow}>
         {this.state.show ? 
-          <i className='fas fa-angle-up fa'/> :
-          <i className='fas fa-angle-down fa'/>
+          <FontAwesomeIcon icon={faCaretUp} className='fas fa-caret-up fa fa-2x'/> :
+          <FontAwesomeIcon icon={faCaretDown} className='fas fa-caret-down fa fa-2x'/>
         }
       </button>
       {this.state.show ?
-        <div className='info-dropdown-more'>{this.props.children}</div> :
+        <div className={this.props.classes.infoDropdownMenu}>{this.props.children}</div> :
         ''
       }      
     </div>
@@ -40,7 +67,7 @@ class InfoDropdown extends PureComponent {
 }
 
 InfoDropdown.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.array,
 };
 
-export default InfoDropdown;
+export default withStyles(styles)(InfoDropdown);
