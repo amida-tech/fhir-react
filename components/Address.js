@@ -1,25 +1,27 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { compact, find, get, has } from 'lodash';
+// import { moment } from 'moment';
 
 class Address extends PureComponent {
     constructor(props) {
         super(props)
-        //this.allAddresses = _.get(this.props, 'address').map(addressRecord => (_.get(addressRecord, 'prefix', '') + ' ' + _.get(addressRecord, 'given', '') + ' ' + _.get(addressRecord, 'family', '') + ' ' + _.get(addressRecord, 'suffix', '')).trim());
-        this.currentAddress = _.find(_.get(this.props, 'address'), addressRecord => addressRecord.use === 'home');
+        //this.allAddresses = get(this.props, 'address').map(addressRecord => (get(addressRecord, 'prefix', '') + ' ' + get(addressRecord, 'given', '') + ' ' + get(addressRecord, 'family', '') + ' ' + get(addressRecord, 'suffix', '')).trim());
+        this.currentAddress = find(get(this.props, 'address'), addressRecord => addressRecord.use === 'home');
     };
     
     addressConcatenator(addressRecord) {
         return (
             <div className='address'>
-                {_.get(addressRecord, 'line').map((line, index) => <span key={'addressRecord' + index}>{line}<br/></span>)}
+                {get(addressRecord, 'line').map((line, index) => <span key={'addressRecord' + index}>{line}<br/></span>)}
                 <span>
-                    {_.get(addressRecord, 'district')}
+                    {get(addressRecord, 'district')}
                 </span>
                 <span>
-                    {_.compact([_.get(addressRecord, 'city'), _.get(addressRecord, 'state'), _.get(addressRecord, 'postalCode')]).join(', ')}
+                    {compact([get(addressRecord, 'city'), get(addressRecord, 'state'), get(addressRecord, 'postalCode')]).join(', ')}
                 </span>
                 <span>
-                    {_.get(addressRecord, 'country')}
+                    {get(addressRecord, 'country')}
                 </span>
             </div>
         );
@@ -27,9 +29,9 @@ class Address extends PureComponent {
   
     render() {
         return (
-            _.has(this.currentAddress, 'text') ?
+            has(this.currentAddress, 'text') ?
                 (<div className='address'>
-                    {_.get(this.currentAddress, 'text')}
+                    {get(this.currentAddress, 'text')}
                 </div>) :
                 this.addressConcatenator(this.currentAddress)
         );
