@@ -8,10 +8,11 @@ const styles = {
     width: 360,
     height: 550,
     background: "#F0F4F8",
+    position:"relative",
     display: "flex",
     "align-items": "center",
     "justify-content": "center",
-    "box-shadow": "0px 3px 6px #F6F6F6"
+    "box-shadow": "0px 3px 6px 0px rgba(246, 246, 246, 0.16)"
   },
   card: {
     width: 315,
