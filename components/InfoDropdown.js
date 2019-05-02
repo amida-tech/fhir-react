@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import Button from '@material-ui/core/Button';
 import Popper from '@material-ui/core/Popper';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
@@ -16,25 +17,14 @@ const styles = {
     'position': 'relative'
   },
   infoDropdownButton: {
-    'background': 'none',
-    'border': 'none',
-    'outline': 'none',
     'color': '#829AB1',
     'margin-left': '100%'
   },
-  infoDropdownMenu: {
-    'display': 'block',
-    'position': 'absolute',
-    'background': 'white',
-    'border': '2px solid black',
-    'width': '300px',
+  infoDropdownMenuList: {
+    'padding': 0,
     'height': '150px',
     'overflow-y': 'auto',
-    'right': 0,
     'z-index': 1
-  },
-  infoDropdownMenuList: {
-    'padding': 0
   },
   infoDropdownMenuItem: {
     'border-bottom': '1px solid #ccc',
@@ -48,19 +38,19 @@ class InfoDropdown extends PureComponent {
     constructor(props) {
       super(props)
       this.state = { 
-          show: false,
+          open: false,
       };
-      this.toggleShow = this.toggleShow.bind(this);
+      this.handleToggle = this.handleToggle.bind(this);
     }
     
-    toggleShow(evt) {
-        if (!this.state.show) {
-        this.setState({ show: true }, () => {
-        document.addEventListener('click', this.toggleShow);
+    handleToggle(evt) {
+      if (!this.state.open) {
+        this.setState({ open: true }, () => {
+        document.addEventListener('click', this.handleToggle);
       });
     } else {
-      this.setState({ show: false }, () => {
-        document.removeEventListener('click', this.toggleShow);
+      this.setState({ open: false }, () => {
+        document.removeEventListener('click', this.handleToggle);
       });
     }
   };
@@ -68,14 +58,20 @@ class InfoDropdown extends PureComponent {
   render() {
   return (
       <div className={this.props.classes.infoDropdown}>
-      <button className={this.props.classes.infoDropdownButton}
-        onClick={this.toggleShow}>
-        {this.state.show ? 
-          <FontAwesomeIcon icon={faCaretUp} className='fas fa-caret-up fa fa-3x'/> :
-          <FontAwesomeIcon icon={faCaretDown} className='fas fa-caret-down fa fa-3x'/>
-        }
-      </button>
-      <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
+      <Button
+        className={this.props.classes.infoDropdownButton}
+        buttonRef={node => {
+          this.anchorEl = node;
+        }}
+        aria-owns={open ? 'menu-list-grow' : undefined}
+        aria-haspopup='true'
+        onClick={this.handleToggle}>
+          {this.state.open ? 
+            <FontAwesomeIcon icon={faCaretUp} className='fas fa-caret-up fa fa-3x'/> :
+            <FontAwesomeIcon icon={faCaretDown} className='fas fa-caret-down fa fa-3x'/>
+          }
+        </Button>
+      <Popper open={this.state.open} anchorEl={this.anchorEl} transition disablePortal>
             {({ TransitionProps, placement }) => (
         <Grow
           {...TransitionProps}
