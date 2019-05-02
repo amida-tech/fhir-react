@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import Popper from '@material-ui/core/Popper';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import MenuList from '@material-ui/core/MenuList';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 const styles = {
   infoDropdown: {
@@ -12,7 +18,9 @@ const styles = {
   infoDropdownButton: {
     'background': 'none',
     'border': 'none',
-    'outline': 'none'
+    'outline': 'none',
+    'color': '#829AB1',
+    'margin-left': '100%'
   },
   infoDropdownMenu: {
     'display': 'block',
@@ -24,6 +32,15 @@ const styles = {
     'overflow-y': 'auto',
     'right': 0,
     'z-index': 1
+  },
+  infoDropdownMenuList: {
+    'padding': 0
+  },
+  infoDropdownMenuItem: {
+    'border-bottom': '1px solid #ccc',
+    '&:last-child': {
+      'border-width': 0
+    }
   }
 };
 
@@ -54,17 +71,31 @@ class InfoDropdown extends PureComponent {
       <button className={this.props.classes.infoDropdownButton}
         onClick={this.toggleShow}>
         {this.state.show ? 
-          <FontAwesomeIcon icon={faCaretUp} className='fas fa-caret-up fa fa-2x'/> :
-          <FontAwesomeIcon icon={faCaretDown} className='fas fa-caret-down fa fa-2x'/>
+          <FontAwesomeIcon icon={faCaretUp} className='fas fa-caret-up fa fa-3x'/> :
+          <FontAwesomeIcon icon={faCaretDown} className='fas fa-caret-down fa fa-3x'/>
         }
       </button>
-      {this.state.show ?
-        <div className={this.props.classes.infoDropdownMenu}>{this.props.children}</div> :
-        ''
-      }      
+      <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
+            {({ TransitionProps, placement }) => (
+        <Grow
+          {...TransitionProps}
+          id="menu-list-grow"
+          style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
+          <Paper>
+            <MenuList className={this.props.classes.infoDropdownMenuList}>
+              {this.props.children.map((child, index) =>
+                <MenuItem key={'menuItem' +index} className={this.props.classes.infoDropdownMenuItem}>
+                  {child}
+                </MenuItem>)}
+            </MenuList>
+          </Paper>
+        </Grow>)}
+      </Popper>
     </div>
   )}
 }
+
+//<div className={this.props.classes.infoDropdownMenu}>{this.props.children}</div>
 
 InfoDropdown.propTypes = {
   children: PropTypes.array,

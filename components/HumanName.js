@@ -18,18 +18,15 @@ const styles = {
     'display': 'flex',
     'align-items': 'center'
   },
+  humanNameLabel: {
+    'font-family': 'Helvetica',
+    'font-size': '48px',
+    'color': '#243B53'
+  },
   humanNameField: {
     'display': 'flex',
-    'flex-direction': 'column'
-  },
-  humanNameSpan: {
-    'margin': '0 2%',
+    'flex-direction': 'column',
     'text-transform': 'capitalize'
-  },
-  divider: {
-    'display': 'block',
-    'width': '100%',
-    'border-top': '1px solid #ccc'
   },
   iconInfo: {
     'color': '#D3D3D3'
@@ -54,26 +51,24 @@ class HumanName extends PureComponent {
       return(
         <div className={this.props.classes.humanName}>
             <div className={this.props.classes.humanNamePanel}>
-              <h2>Name: {this.patientName}</h2>
+              <label className={this.props.classes.humanNameLabel}>{this.patientName}</label>
               <InfoDropdown>
                 {get(this.props, 'humanName').map((nameRecord, index) => 
-                    <ul key={'humanName' + index}>
-                  <li className={this.props.classes.humanNameField}>
-                    <span className={this.props.classes.humanNameSpan}>
-                      {get(nameRecord, 'use', 'N/A')} - {this.fullNames[index]}
-                    </span>
-                    <span className={this.props.classes.humanNameSpan}>
-                      Period: {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')} to {has(nameRecord, 'period.end') ?
-                      moment(get(nameRecord, 'period.end')).format('MM/DD/YYYY') :
-                      'Present'}
-                    </span>
-                    <span className={this.props.classes.divider}/>
-                    </li>
-                  </ul>)
+                    <div key={'humanName' + index} className={this.props.classes.humanNameField}>
+                      <div>
+                        {get(nameRecord, 'use', 'N/A')} - {this.fullNames[index]}
+                      </div>
+                      <div>
+                        Period: {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')} to {has(nameRecord, 'period.end') ?
+                        moment(get(nameRecord, 'period.end')).format('MM/DD/YYYY') :
+                        'Present'}
+                      </div>
+                      <div className={this.props.classes.divider}/>
+                  </div>)
                 }
               </InfoDropdown>
             </div>
-            <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameInfo')}/>
+            <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa-2x fa icon-info'} title={get(this.props, 'nameInfo')}/>
           </div>
       );
     }
