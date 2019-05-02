@@ -1,17 +1,23 @@
 
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { FormHelperText } from '@material-ui/core';
 
 const styles = {
   background: {
     width: 360,
     height: 550,
-    background: "#F0F4F8"
+    background: "#F0F4F8",
+    display: "flex",
+    "align-items": "center",
+    "justify-content": "center",
+    "box-shadow": "0px 3px 6px #F6F6F6"
   },
   card: {
     width: 315,
     height: 487,
-    background: "#FFFFFF"
+    background: "#FFFFFF",
+    "box-shadow": "#BCCCDC"
   }
 };
 
