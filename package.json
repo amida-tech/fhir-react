@@ -1,13 +1,16 @@
 {
   "dependencies": {
-    "@storybook/cli": "^5.0.11"
+    "@storybook/cli": "^5.0.11",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
-    "@storybook/react": "^5.0.11",
+    "@babel/core": "^7.4.4",
+    "@fortawesome/fontawesome-free": "^5.8.1",
     "@storybook/addon-actions": "^5.0.11",
     "@storybook/addon-links": "^5.0.11",
     "@storybook/addons": "^5.0.11",
-    "@babel/core": "^7.4.4",
+    "@storybook/react": "^5.0.11",
     "babel-loader": "^8.0.5"
   },
   "scripts": {
