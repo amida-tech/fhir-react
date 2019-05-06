@@ -21,7 +21,13 @@ const styles = {
   humanNameLabel: {
     'font-family': 'Helvetica',
     'font-size': '48px',
-    'color': '#243B53'
+    "font-style": "normal",
+    "font-weight": 400,
+    "color": "rgb(36, 59, 83)",
+    "& p": {
+      "margin-top":0,
+      right:0,
+    }
   },
   humanNameMenuHeader: {
     'font-family': 'Helvetica',
@@ -106,13 +112,15 @@ class HumanName extends PureComponent {
       return(
         <div className={this.props.classes.humanName}>
             <div className={this.props.classes.humanNamePanel}>
-              <label className={this.props.classes.humanNameLabel}>{this.patientName}</label>
+              <label className={this.props.classes.humanNameLabel}>
+                  {this.patientName}
+              </label>
               <InfoDropdown>
                 {this.menuGenerator(get(this.props, 'humanName'))}
               </InfoDropdown>
             </div>
             <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa-2x fa icon-info'} title={get(this.props, 'nameInfo')}/>
-          </div>
+        </div>
       );
     }
   }

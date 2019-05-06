@@ -17,7 +17,8 @@ storiesOf('Patient', module)
 .addParameters({ options: { theme: xd } })
   .add('Hello World', () => (
     <div>
-      <Patient/>  
+      <Patient patient={Marion} 
+      nameInfo={info.nameInfo}/>  
     </div>
     
   ));

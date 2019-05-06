@@ -13,12 +13,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = {
   infoDropdown: {
-    'display': 'block',
-    'position': 'relative'
+    'position': 'relative',
+    'padding-left': '10%'
   },
   infoDropdownButton: {
     'color': '#829AB1',
-    'margin-left': '100%'
+    'margin-right': 0,
+    'min-width': 0,
+    'padding': 0
   },
   infoDropdownMenuList: {
     'padding': 0,
