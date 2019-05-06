@@ -23,7 +23,7 @@ storiesOf('Patient', module)
   ));
 
 storiesOf('PatientView', module)
-  .add('WHADDUP', () => (
+  .add('Because Riley made me change it', () => (
     <HumanName humanName={Marion.name} 
       nameInfo={info.nameInfo}/>
   ));

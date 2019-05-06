@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import Button from '@material-ui/core/Button';
 import Popper from '@material-ui/core/Popper';
 import Grow from '@material-ui/core/Grow';
@@ -22,12 +22,19 @@ const styles = {
   },
   infoDropdownMenuList: {
     'padding': 0,
-    'height': '150px',
+    'height': '250px',
     'overflow-y': 'auto',
-    'z-index': 1
+    'z-index': 1,
+    '&:first-child': {
+      'padding': '3% 0 0 0'
+    },
+    '&> *:hover': {
+      'background-color': '#fff'
+    }
   },
   infoDropdownMenuItem: {
     'border-bottom': '1px solid #ccc',
+    'padding': '25px 10px',
     '&:last-child': {
       'border-width': 0
     }
@@ -67,8 +74,8 @@ class InfoDropdown extends PureComponent {
         aria-haspopup='true'
         onClick={this.handleToggle}>
           {this.state.open ? 
-            <FontAwesomeIcon icon={faCaretUp} className='fas fa-caret-up fa fa-3x'/> :
-            <FontAwesomeIcon icon={faCaretDown} className='fas fa-caret-down fa fa-3x'/>
+            <FontAwesomeIcon icon={faChevronUp} className='fas fa-chevron-up fa fa-3x'/> :
+            <FontAwesomeIcon icon={faChevronDown} className='fas fa-chevron-down fa fa-3x'/>
           }
         </Button>
       <Popper open={this.state.open} anchorEl={this.anchorEl} transition disablePortal>
