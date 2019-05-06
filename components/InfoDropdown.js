@@ -14,7 +14,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 const styles = {
   infoDropdown: {
     'position': 'relative',
-    'padding-left': '10%'
   },
   infoDropdownButton: {
     'color': '#829AB1',
@@ -76,8 +75,8 @@ class InfoDropdown extends PureComponent {
         aria-haspopup='true'
         onClick={this.handleToggle}>
           {this.state.open ? 
-            <FontAwesomeIcon icon={faChevronUp} className='fas fa-chevron-up fa fa-3x'/> :
-            <FontAwesomeIcon icon={faChevronDown} className='fas fa-chevron-down fa fa-3x'/>
+            <FontAwesomeIcon icon={faChevronUp} className='fas fa-chevron-up fa fa-2x'/> :
+            <FontAwesomeIcon icon={faChevronDown} className='fas fa-chevron-down fa fa-2x'/>
           }
         </Button>
       <Popper open={this.state.open} 
@@ -88,7 +87,7 @@ class InfoDropdown extends PureComponent {
             {({ TransitionProps, placement }) => (
         <Grow
           {...TransitionProps}
-          id="menu-list-grow"
+          id='menu-list-grow'
           style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
           <Paper>
             <MenuList className={this.props.classes.infoDropdownMenuList}>
@@ -103,8 +102,6 @@ class InfoDropdown extends PureComponent {
     </div>
   )}
 }
-
-//<div className={this.props.classes.infoDropdownMenu}>{this.props.children}</div>
 
 InfoDropdown.propTypes = {
   children: PropTypes.array,
