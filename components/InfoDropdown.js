@@ -34,7 +34,9 @@ const styles = {
     }
   },
   infoDropdownMenuItem: {
-    'border-bottom': '1px solid #ccc',
+    '&:first-child': {
+      'border-bottom': '1px solid #ccc',
+    },
     'padding': '25px 10px',
     '&:last-child': {
       'border-width': 0
