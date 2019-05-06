@@ -3,9 +3,9 @@ export const patient = {
     name: [{
       use: 'nickname',
       family: 'Cotillard',
-      given: ['Marion', 'Simone', 'Chiquita', 'Bonita', 'Margarita'],
-      prefix: ['Miss', 'Amazing'],
-      suffix: ['Esquire', 'III'],
+      given: ['Marion', 'Simone'],
+      prefix: ['Miss'],
+      suffix: ['III'],
       period: {
         start: new Date('September 30, 1975 00:00:00'),
       }
