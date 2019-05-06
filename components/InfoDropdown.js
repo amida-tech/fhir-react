@@ -80,7 +80,11 @@ class InfoDropdown extends PureComponent {
             <FontAwesomeIcon icon={faChevronDown} className='fas fa-chevron-down fa fa-3x'/>
           }
         </Button>
-      <Popper open={this.state.open} anchorEl={this.anchorEl} transition disablePortal>
+      <Popper open={this.state.open} 
+        anchorEl={this.anchorEl} 
+        transition
+        placement='bottom-end'
+        disablePortal>
             {({ TransitionProps, placement }) => (
         <Grow
           {...TransitionProps}
