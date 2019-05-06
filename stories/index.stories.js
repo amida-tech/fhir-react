@@ -18,7 +18,7 @@ storiesOf('Patient', module)
   .add('Hello World', () => (
     <div>
       <Patient patient={Marion} 
-      nameInfo={info.nameInfo}/>  
+        info={info}/>  
     </div>
     
   ));

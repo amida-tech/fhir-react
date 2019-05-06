@@ -11,7 +11,7 @@ const styles = {
   humanName: {
     'display': 'flex',
     'flex-direction': 'row',
-    'align-items': 'baseline',
+    'align-items': 'center',
     'justify-content': 'space-between'
   },
   humanNamePanel: {
@@ -20,18 +20,14 @@ const styles = {
   },
   humanNameLabel: {
     'font-family': 'Helvetica',
-    'font-size': '48px',
+    'font-size': '1.5em',
     "font-style": "normal",
     "font-weight": 400,
     "color": "rgb(36, 59, 83)",
-    "& p": {
-      "margin-top":0,
-      right:0,
-    }
   },
   humanNameMenuHeader: {
     'font-family': 'Helvetica',
-    'font-size': '20px',
+    'font-size': '1.3em',
     'color': '#243B53',
     'margin-left': '5%',
     'margin-bottom': '3%'
@@ -43,7 +39,7 @@ const styles = {
   },
   humanNameTableLabel: {
     'font-family': 'Source Sans Pro',
-    'font-size': '16px',
+    'font-size': '1em',
     'color': '#486581',
     'margin-left': '15px',
     'min-width': '80px'
@@ -55,13 +51,13 @@ const styles = {
   },
   humanNameTableName: {
     'font-family': 'Helvetica',
-    'font-size': '16px',
+    'font-size': '1em',
     'font-weight': 'bold',
     'color': '#243B53'
   },
   humanNameTablePeriod: {
     'font-family': 'Source Sans Pro',
-    'font-size': '14px',
+    'font-size': '.9em',
     'color': '#829AB1',
   },
   iconInfo: {
@@ -119,7 +115,7 @@ class HumanName extends PureComponent {
                 {this.menuGenerator(get(this.props, 'humanName'))}
               </InfoDropdown>
             </div>
-            <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa-2x fa icon-info'} title={get(this.props, 'nameInfo')}/>
+            <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameInfo')}/>
         </div>
       );
     }
