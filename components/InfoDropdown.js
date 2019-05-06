@@ -13,12 +13,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = {
   infoDropdown: {
-    'display': 'block',
-    'position': 'relative'
+    'position': 'relative',
+    'padding-left': '5px'
   },
   infoDropdownButton: {
     'color': '#829AB1',
-    'margin-left': '100%'
+    'margin-right': 0,
+    'min-width': 0,
+    'padding': 0
   },
   infoDropdownMenuList: {
     'padding': 0,
@@ -67,8 +69,8 @@ class InfoDropdown extends PureComponent {
         aria-haspopup='true'
         onClick={this.handleToggle}>
           {this.state.open ? 
-            <FontAwesomeIcon icon={faCaretUp} className='fas fa-caret-up fa fa-3x'/> :
-            <FontAwesomeIcon icon={faCaretDown} className='fas fa-caret-down fa fa-3x'/>
+            <FontAwesomeIcon icon={faCaretUp} className='fas fa-caret-up fa fa-2x'/> :
+            <FontAwesomeIcon icon={faCaretDown} className='fas fa-caret-down fa fa-2x'/>
           }
         </Button>
       <Popper open={this.state.open} anchorEl={this.anchorEl} transition disablePortal>

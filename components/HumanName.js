@@ -19,9 +19,16 @@ const styles = {
     'align-items': 'center'
   },
   humanNameLabel: {
+
     'font-family': 'Helvetica',
-    'font-size': '48px',
-    'color': '#243B53'
+    'font-size': '22px',
+    "font-style": "normal",
+    "font-weight": 400,
+    "color": "rgb(36, 59, 83)",
+    "& p": {
+      "margin-top":0,
+      right:0,
+    }
   },
   humanNameField: {
     'display': 'flex',
@@ -51,12 +58,16 @@ class HumanName extends PureComponent {
       return(
         <div className={this.props.classes.humanName}>
             <div className={this.props.classes.humanNamePanel}>
-              <label className={this.props.classes.humanNameLabel}>{this.patientName}</label>
+              <label className={this.props.classes.humanNameLabel}>
+                <p>
+                  {this.patientName}
+                </p>
+              </label>
               <InfoDropdown>
                 {get(this.props, 'humanName').map((nameRecord, index) => 
                     <div key={'humanName' + index} className={this.props.classes.humanNameField}>
                       <div>
-                        {get(nameRecord, 'use', 'N/A')} - {this.fullNames[index]}
+                        { get(nameRecord, 'use', 'N/A')} - {this.fullNames[index] }
                       </div>
                       <div>
                         Period: {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')} to {has(nameRecord, 'period.end') ?
@@ -68,8 +79,8 @@ class HumanName extends PureComponent {
                 }
               </InfoDropdown>
             </div>
-            <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa-2x fa icon-info'} title={get(this.props, 'nameInfo')}/>
-          </div>
+            {/* <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa-1x fa icon-info'} title={get(this.props, 'nameInfo')}/> */}
+        </div>
       );
     }
   }
