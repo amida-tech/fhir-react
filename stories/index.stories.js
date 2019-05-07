@@ -14,17 +14,11 @@ import xd from '../themes/xd';
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Patient')} />);
 
 storiesOf('Patient', module)
-.addParameters({ options: { theme: xd } })
-  .add('Hello World', () => (
+.addParameters({ options: { theme: xd }, viewport: { defaultViewport: 'iphone6' } })
+  .add('Hello World', () => 
     <div>
       <Patient patient={Marion} 
         info={info}/>  
-    </div>
-    
-  ));
-
-storiesOf('TALES OF SUSPENSE AND HUMAN NAMES', module)
-  .add('Because Riley made me change it', () => (
-    <HumanName humanName={Marion.name} 
-      nameInfo={info.nameInfo}/>
-  ));
+    </div>, 
+    { viewport: { defaultViewport: 'iphonex' } }
+  );

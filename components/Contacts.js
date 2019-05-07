@@ -2,11 +2,12 @@ import React from 'react';
 
 const Contacts = props => ({
   render() {
-    return(
+    return (
       <>
+        {props}
       </>
     );
-  }
-})
+  },
+});
 
 export default Contacts;
