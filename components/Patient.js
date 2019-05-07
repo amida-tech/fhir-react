@@ -1,5 +1,7 @@
 
 import React from 'react';
+import HumanName from '../components/HumanName';
+import CenteredTabs from './CenteredTabs';
 import { withStyles } from '@material-ui/core/styles';
 import { FormHelperText } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
@@ -7,9 +9,11 @@ import { black } from 'ansi-colors';
 import avatar from '../assets/avatar.png';
 import { rgb } from 'polished';
 import { AutoFocusInside } from 'react-focus-lock';
-import HumanName from '../components/HumanName';
 import { find, get, has } from 'lodash';
 import moment from 'moment';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Paper from '@material-ui/core/Paper';
 
 
 const styles = {
@@ -28,16 +32,21 @@ const styles = {
     height: 487,
     background: "#FFFFFF",
     "box-shadow": "#BCCCDC",
-    display: "flex",
-    "justify-content": "center",
+    display: "grid",
+    "grid-template-columns": "100%",
+    "grid-template-rows": "30% 70%",
+    
   },
   header: {
+    
     width: 250,
     height: 90,
-    "margin-top": 28,
+    "justify-self": "center",
+    "align-self":"center",
     display: "grid",
     "grid-template-columns": "65px auto",
-    "grid-template-rows": "65px auto"
+    "grid-template-rows": "65px auto",
+    "grid-row": 1
   },
   avatarContainer: {
     "grid-column": 1,
@@ -49,14 +58,15 @@ const styles = {
       "font-family": "Source Sans Pro",
       "font-weight": "500",
       "color": "rgb(98, 125, 152)"
-
     }
   },
-  patientNameContainer: {
-    position:"relative"
+  tabsContainer: {
+    "grid-row": 2,
+    zIndex: 0
   }
 };
-
+// Mike Wants Hooks
+// Also wants pure
 const Patient = props => ({
 
   render() {
@@ -72,11 +82,10 @@ const Patient = props => ({
                 <img src={avatar} height="65" width = "65" alt="Avatar" />
                 <p>Active</p>
             </div>
-            <div className = {classes.patientNameContainer} >
             <HumanName humanName={get(props, 'patient.name')} 
                 nameInfo={get(props, 'info.nameInfo')}/>
-            </div>  
           </div>
+          <CenteredTabs clasName={classes.tabsContainer}/>
         </div>
       </div>
     );

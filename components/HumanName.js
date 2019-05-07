@@ -24,6 +24,8 @@ const styles = {
     "font-style": "normal",
     "font-weight": 400,
     "color": "rgb(36, 59, 83)",
+    "padding-left": "1rem"
+
   },
   humanNameMenuHeader: {
     'font-family': 'Helvetica',
@@ -61,7 +63,8 @@ const styles = {
     'color': '#829AB1',
   },
   iconInfo: {
-    'color': '#D3D3D3' // Be nice if we could use some preprocessor to render variables real soon. 
+    'color': '#D3D3D3', // Be nice if we could use some preprocessor to render variables real soon. 
+    'align-self': 'end'
   }
 };
 
@@ -115,7 +118,7 @@ class HumanName extends PureComponent {
                 {this.menuGenerator(get(this.props, 'humanName'))}
               </InfoDropdown>
             </div>
-            <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameInfo')}/>
+            {/* <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameInfo')}/> */}
         </div>
       );
     }

@@ -13,19 +13,21 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = {
   infoDropdown: {
-    'position': 'relative',
+    position: 'relative',
+    display: 'grid',
+    alignSelf: 'flex-end',
+    zIndex: 1,
   },
   infoDropdownButton: {
-    'color': '#829AB1',
-    'margin-right': 0,
-    'min-width': 0,
-    'padding': 0
+    color: '#829AB1',
+    marginRight: 0,
+    minWidth: 0,
+    padding: 0,
   },
   infoDropdownMenuList: {
-    'padding': 0,
-    'height': '250px',
-    'overflow-y': 'auto',
-    'z-index': 1,
+    padding: 0,
+    height: '250px',
+    overflowY: 'auto',
     '&:first-child': {
       'padding': '3% 0 0 0'
     },
@@ -34,12 +36,12 @@ const styles = {
     }
   },
   infoDropdownMenuItem: {
+    padding: '25px 10px',
     '&:first-child': {
       'border-bottom': '1px solid #ccc',
     },
-    'padding': '25px 10px',
     '&:last-child': {
-      'border-width': 0
+      borderWidth: 0
     }
   }
 };
