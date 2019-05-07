@@ -15,29 +15,29 @@ import InfoDropdown from './InfoDropdown';
 const styles = {
   humanName: {
     display: 'flex',
-    'flex-direction': 'row',
-    'align-items': 'center',
-    'justify-content': 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   humanNamePanel: {
     display: 'flex',
-    'align-items': 'center',
+    alignItems: 'center',
   },
   humanNameLabel: {
-    'font-family': 'Helvetica',
-    'font-size': '1.5em',
-    'font-style': 'normal',
-    'font-weight': 400,
+    fontFamily: 'Helvetica',
+    fontSize: '1.5em',
+    fontStyle: 'normal',
+    fontWeight: 400,
     color: 'rgb(36, 59, 83)',
-    'padding-left': '1rem',
+    paddingLeft: '1rem',
 
   },
   humanNameMenuHeader: {
-    'font-family': 'Helvetica',
-    'font-size': '1.3em',
+    fontFamily: 'Helvetica',
+    fontSize: '1.3em',
     color: '#243B53',
-    'margin-left': '5%',
-    'margin-bottom': '3%',
+    marginLeft: '5%',
+    marginBottom: '3%',
   },
   humanNameField: {
     display: 'flex',
@@ -56,19 +56,19 @@ const styles = {
     flexDirection: 'column',
   },
   humanNameTableName: {
-    'font-family': 'Helvetica',
-    'font-size': '1em',
-    'font-weight': 'bold',
+    fontFamily: 'Helvetica',
+    fontSize: '1em',
+    fontWeight: 'bold',
     color: '#243B53',
   },
   humanNameTablePeriod: {
-    'font-family': 'Source Sans Pro',
-    'font-size': '.9em',
+    fontFamily: 'Source Sans Pro',
+    fontSize: '.9em',
     color: '#829AB1',
   },
   iconInfo: {
     color: '#D3D3D3', // Be nice if we could use some preprocessor to render variables real soon.
-    'align-self': 'end',
+    alignSelf: 'end',
   },
 };
 
