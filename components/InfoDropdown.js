@@ -73,26 +73,24 @@ class InfoDropdown extends PureComponent {
   }
 
   render() {
-    const { open } = this.state;
-    const { classes, children } = this.props;
     return (
-      <div className={classes.infoDropdown}>
+      <div className={this.props.classes.infoDropdown}>
         <Button
-          className={classes.infoDropdownButton}
+          className={this.props.classes.infoDropdownButton}
           buttonRef={node => {
             this.anchorEl = node;
           }}
-          aria-owns={open ? 'menu-list-grow' : undefined}
+          aria-owns={this.state.open ? 'menu-list-grow' : undefined}
           aria-haspopup="true"
           onClick={this.handleToggle}
         >
-          {open
+          {this.state.pen
             ? <FontAwesomeIcon icon={faChevronUp} className="fas fa-chevron-up fa fa-2x" />
             : <FontAwesomeIcon icon={faChevronDown} className="fas fa-chevron-down fa fa-2x" />
           }
         </Button>
         <Popper
-          open={open}
+          open={this.state.open}
           anchorEl={this.anchorEl}
           transition
           placement="bottom-end"
@@ -105,9 +103,9 @@ class InfoDropdown extends PureComponent {
               style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
             >
               <Paper>
-                <MenuList className={classes.infoDropdownMenuList}>
-                  {children.map(child => (
-                    <MenuItem key={`menuItem${uuidv4()}`} className={classes.infoDropdownMenuItem}>
+                <MenuList className={this.props.classes.infoDropdownMenuList}>
+                  {this.props.children.map(child => (
+                    <MenuItem key={`menuItem${uuidv4()}`} className={this.props.classes.infoDropdownMenuItem}>
                       {child}
                     </MenuItem>
                   ))}
@@ -123,7 +121,7 @@ class InfoDropdown extends PureComponent {
 
 InfoDropdown.propTypes = {
   classes: PropTypes.object,
-  children: PropTypes.object,
+  children: PropTypes.array,
 };
 
 export default withStyles(styles)(InfoDropdown);

@@ -1,3 +1,5 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -6,8 +8,8 @@ import {
 import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 import { withStyles } from '@material-ui/core/styles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import InfoDropdown from './InfoDropdown';
 
 const styles = {
@@ -39,20 +41,19 @@ const styles = {
   },
   humanNameField: {
     display: 'flex',
-    'flex-direction': 'row',
-    'text-transform': 'capitalize',
+    flexDirection: 'row',
   },
   humanNameTableLabel: {
-    'font-family': 'Source Sans Pro',
-    'font-size': '1em',
+    fontFamily: 'Source Sans Pro',
+    fontSize: '1rem',
     color: '#486581',
-    'margin-left': '15px',
-    'min-width': '80px',
+    marginLeft: '15px',
+    minWidth: '80px',
+    textTransform: 'capitalize',
   },
   humanNameDetails: {
     display: 'flex',
-    'flex-direction': 'column',
-    'text-transform': 'capitalize',
+    flexDirection: 'column',
   },
   humanNameTableName: {
     'font-family': 'Helvetica',
@@ -72,17 +73,17 @@ const styles = {
 };
 
 class HumanName extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.patientName = find(get(this.props, 'humanName'), name => name.use === 'usual').text || find(get(this.props, 'humanName'), name => name.use === 'official').text;
-    this.fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || this.nameConcatenator(nameRecord));
-  }
-
-  nameConcatenator(nameRecord) {
+  static nameConcatenator(nameRecord) {
     return (`${replace(get(nameRecord, 'prefix', []), /,/g, ' ')} ${
       replace(get(nameRecord, 'given', []), /,/g, ' ')} ${
       get(nameRecord, 'family', '')} ${
       replace(get(nameRecord, 'suffix', []), /,/g, ' ')}`).trim();
+  }
+
+  constructor(props) {
+    super(props);
+    this.patientName = find(get(this.props, 'humanName'), name => name.use === 'usual').text || find(get(this.props, 'humanName'), name => name.use === 'official').text;
+    this.fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
   }
 
   menuGenerator(nameRecords) {
@@ -97,8 +98,7 @@ class HumanName extends PureComponent {
           </div>
           <div className={this.props.classes.humanNameTablePeriod}>
             {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')}
-            {' '}
-to
+            {' to '}
             {has(nameRecord, 'period.end')
               ? moment(get(nameRecord, 'period.end')).format('MM/DD/YYYY')
               : 'Present'}
@@ -111,7 +111,7 @@ to
         className={this.props.classes.humanNameMenuHeader}
         key="additionalNames"
       >
-            Additional Names
+        Additional Names
       </div>,
     );
     return menuList;
@@ -121,9 +121,9 @@ to
     return (
       <div className={this.props.classes.humanName}>
         <div className={this.props.classes.humanNamePanel}>
-          <label className={this.props.classes.humanNameLabel}>
+          <div className={this.props.classes.humanNameLabel}>
             {this.patientName}
-          </label>
+          </div>
           <InfoDropdown>
             {this.menuGenerator(get(this.props, 'humanName'))}
           </InfoDropdown>
@@ -135,8 +135,9 @@ to
 }
 
 HumanName.propTypes = {
+  classes: PropTypes.object,
   humanName: PropTypes.array,
-  nameInfo: PropTypes.string,
+  // nameInfo: PropTypes.string,
 };
 
 export default withStyles(styles)(HumanName);
