@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/forbid-prop-types */
 
 import React from 'react';
@@ -16,18 +17,18 @@ const styles = {
     background: '#F0F4F8',
     position: 'relative',
     display: 'flex',
-    'align-items': 'center',
-    'justify-content': 'center',
-    'box-shadow': '0px 3px 6px 0px rgba(246, 246, 246, 0.16)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: '0px 3px 6px 0px rgba(246, 246, 246, 0.16)',
   },
   card: {
     width: 315,
     height: 487,
     background: '#FFFFFF',
-    'box-shadow': '#BCCCDC',
+    boxShadow: '#BCCCDC',
     display: 'grid',
-    'grid-template-columns': '100%',
-    'grid-template-rows': '30% 70%',
+    gridTemplateColumns: '100%',
+    gridTemplateRows: '30% 70%',
 
   },
   header: {
@@ -58,33 +59,34 @@ const styles = {
     zIndex: 0,
   },
 };
+
 // Mike Wants Hooks
 // Also wants pure
-const Patient = props => ({
-
+class Patient extends React.PureComponent {
   render() {
-    console.log(props);
-    const { classes } = props;
-
+    const { classes } = this.props;
+    const {
+      background, card, header, avatarContainer, tabsContainer,
+    } = classes;
     return (
-      <div className={classes.background}>
-        <div className={classes.card}>
-          <div className={classes.header}>
-            <div className={classes.avatarContainer}>
+      <div className={background}>
+        <div className={card}>
+          <div className={header}>
+            <div className={avatarContainer}>
               <img src={avatar} height="65" width="65" alt="Avatar" />
               <p>Active</p>
             </div>
             <HumanName
-              humanName={get(props, 'patient.name')}
-              nameInfo={get(props, 'info.nameInfo')}
+              humanName={get(this.props, 'patient.name')}
+              nameInfo={get(this.props, 'info.nameInfo')}
             />
           </div>
-          <CenteredTabs className={classes.tabsContainer} />
+          <CenteredTabs className={tabsContainer} />
         </div>
       </div>
     );
-  },
-});
+  }
+}
 
 Patient.propTypes = {
   classes: PropTypes.object,

@@ -21,6 +21,7 @@
     "@storybook/addon-viewport": "^5.0.10",
     "@storybook/addons": "^5.0.10",
     "@storybook/react": "^5.0.10",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",

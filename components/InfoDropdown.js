@@ -84,7 +84,7 @@ class InfoDropdown extends PureComponent {
           aria-haspopup="true"
           onClick={this.handleToggle}
         >
-          {this.state.pen
+          {this.state.open
             ? <FontAwesomeIcon icon={faChevronUp} className="fas fa-chevron-up fa fa-2x" />
             : <FontAwesomeIcon icon={faChevronDown} className="fas fa-chevron-down fa fa-2x" />
           }
