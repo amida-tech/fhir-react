@@ -4,6 +4,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import uuidv4 from 'uuid/v4';
+
 import { withStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -73,24 +74,26 @@ class InfoDropdown extends PureComponent {
   }
 
   render() {
+    const { classes, children } = this.props;
+    const { open } = this.state;
     return (
-      <div className={this.props.classes.infoDropdown}>
+      <div className={classes.infoDropdown}>
         <Button
-          className={this.props.classes.infoDropdownButton}
+          className={classes.infoDropdownButton}
           buttonRef={node => {
             this.anchorEl = node;
           }}
-          aria-owns={this.state.open ? 'menu-list-grow' : undefined}
+          aria-owns={open ? 'menu-list-grow' : undefined}
           aria-haspopup="true"
           onClick={this.handleToggle}
         >
-          {this.state.open
+          {open
             ? <FontAwesomeIcon icon={faChevronUp} className="fas fa-chevron-up fa fa-2x" />
             : <FontAwesomeIcon icon={faChevronDown} className="fas fa-chevron-down fa fa-2x" />
           }
         </Button>
         <Popper
-          open={this.state.open}
+          open={open}
           anchorEl={this.anchorEl}
           transition
           placement="bottom-end"
@@ -103,9 +106,9 @@ class InfoDropdown extends PureComponent {
               style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
             >
               <Paper>
-                <MenuList className={this.props.classes.infoDropdownMenuList}>
-                  {this.props.children.map(child => (
-                    <MenuItem key={`menuItem${uuidv4()}`} className={this.props.classes.infoDropdownMenuItem}>
+                <MenuList className={classes.infoDropdownMenuList}>
+                  {children.map(child => (
+                    <MenuItem key={`menuItem${uuidv4()}`} className={classes.infoDropdownMenuItem}>
                       {child}
                     </MenuItem>
                   ))}

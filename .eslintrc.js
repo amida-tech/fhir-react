@@ -5,7 +5,6 @@ module.exports = {
     "extends": "airbnb",
     "parser": "babel-eslint",
     "rules": {
-      "react/destructuring-assignment": [false, "never"],
       'max-len': 'off',
       "jsx-a11y/anchor-is-valid": ["error", {
         "components": ["Link"],

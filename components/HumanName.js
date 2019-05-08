@@ -86,17 +86,17 @@ class HumanName extends PureComponent {
     this.fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
   }
 
-  menuGenerator(nameRecords) {
+  menuGenerator(nameRecords, classes) {
     const menuList = nameRecords.map((nameRecord, index) => (
-      <div key={`humanName${uuidv4()}`} className={this.props.classes.humanNameField}>
-        <div className={this.props.classes.humanNameTableLabel}>
+      <div key={`humanName${uuidv4()}`} className={classes.humanNameField}>
+        <div className={classes.humanNameTableLabel}>
           {get(nameRecord, 'use', 'N/A')}
         </div>
-        <div className={this.props.classes.humanNameDetails}>
-          <div className={this.props.classes.humanNameTableName}>
+        <div className={classes.humanNameDetails}>
+          <div className={classes.humanNameTableName}>
             {this.fullNames[index]}
           </div>
-          <div className={this.props.classes.humanNameTablePeriod}>
+          <div className={classes.humanNameTablePeriod}>
             {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')}
             {' to '}
             {has(nameRecord, 'period.end')
@@ -108,7 +108,7 @@ class HumanName extends PureComponent {
     ));
     menuList.unshift(
       <div
-        className={this.props.classes.humanNameMenuHeader}
+        className={classes.humanNameMenuHeader}
         key="additionalNames"
       >
         Additional Names
@@ -118,14 +118,15 @@ class HumanName extends PureComponent {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div className={this.props.classes.humanName}>
-        <div className={this.props.classes.humanNamePanel}>
-          <div className={this.props.classes.humanNameLabel}>
+      <div className={classes.humanName}>
+        <div className={classes.humanNamePanel}>
+          <div className={classes.humanNameLabel}>
             {this.patientName}
           </div>
           <InfoDropdown>
-            {this.menuGenerator(get(this.props, 'humanName'))}
+            {this.menuGenerator(get(this.props, 'humanName'), classes)}
           </InfoDropdown>
         </div>
         {/* <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameInfo')}/> */}
@@ -136,7 +137,7 @@ class HumanName extends PureComponent {
 
 HumanName.propTypes = {
   classes: PropTypes.object,
-  humanName: PropTypes.array,
+  // humanName: PropTypes.array,
   // nameInfo: PropTypes.string,
 };
 
