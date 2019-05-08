@@ -49,12 +49,12 @@ const styles = {
     "grid-row": 1
   },
   avatarContainer: {
-    "grid-column": 1,
-    "grid-row": "1/ span 2",
-    "text-align": "center",
+    gridColumn: 1,
+    gridRow: "1/ span 2",
+    textAlign: "center",
     "& p": {
-      "margin-top":5,
-      "font-size": 16,
+      marginTop:5,
+      fontSize: 16,
       "font-family": "Source Sans Pro",
       "font-weight": "500",
       "color": "rgb(98, 125, 152)"
