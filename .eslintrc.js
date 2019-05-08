@@ -4,7 +4,6 @@ module.exports = {
     },
     "extends": "airbnb",
       "rules": {
-        "react/destructuring-assignment": [false, "never"],
         'max-len': 'off',
         "jsx-a11y/anchor-is-valid": ["error", {
           "components": ["Link"],
