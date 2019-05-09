@@ -37,13 +37,13 @@ const styles = {
       padding: '3% 0 0 0',
     },
     '&> *:hover': {
-      'background-color': '#fff',
+      backgroundColor: '#fff',
     },
   },
   infoDropdownMenuItem: {
     padding: '25px 10px',
     '&:first-child': {
-      'border-bottom': '1px solid #ccc',
+      borderBottom: '1px solid #ccc',
     },
     '&:last-child': {
       borderWidth: 0,

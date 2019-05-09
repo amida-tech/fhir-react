@@ -11,51 +11,41 @@ import HumanName from './HumanName';
 
 
 const styles = {
-  background: {
-    width: 360,
-    height: 550,
-    background: '#F0F4F8',
-    position: 'relative',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    boxShadow: '0px 3px 6px 0px rgba(246, 246, 246, 0.16)',
-  },
   card: {
     width: 315,
     height: 487,
     background: '#FFFFFF',
-    boxShadow: '#BCCCDC',
+    borderRadius: '3px',
     display: 'grid',
     gridTemplateColumns: '100%',
     gridTemplateRows: '30% 70%',
-
+    alignSelf: 'middle',
+    boxShadow: '2px 3px 10px 0px rgba(188, 204, 220)',
   },
   header: {
-
     width: 250,
     height: 90,
-    'justify-self': 'center',
-    'align-self': 'center',
+    justifySelf: 'center',
+    alignSelf: 'center',
     display: 'grid',
-    'grid-template-columns': '65px auto',
-    'grid-template-rows': '65px auto',
-    'grid-row': 1,
+    gridTemplateColumns: '65px auto',
+    gridTemplateRows: '65px auto',
+    gridRow: 1,
   },
   avatarContainer: {
-    'grid-column': 1,
-    'grid-row': '1/ span 2',
-    'text-align': 'center',
+    gridColumn: 1,
+    gridRow: '1/ span 2',
+    textAlign: 'center',
     '& p': {
-      'margin-top': 5,
-      'font-size': 16,
-      'font-family': 'Source Sans Pro',
-      'font-weight': '500',
+      marginTop: 5,
+      fontSize: 16,
+      fontFamily: 'Source Sans Pro',
+      fontWeight: '500',
       color: 'rgb(98, 125, 152)',
     },
   },
   tabsContainer: {
-    'grid-row': 2,
+    gridRow: 2,
     zIndex: 0,
   },
 };
@@ -66,24 +56,24 @@ class Patient extends React.PureComponent {
   render() {
     const { classes } = this.props;
     const {
-      background, card, header, avatarContainer, tabsContainer,
+      card, header, avatarContainer, tabsContainer,
     } = classes;
     return (
-      <div className={background}>
-        <div className={card}>
-          <div className={header}>
-            <div className={avatarContainer}>
-              <img src={avatar} height="65" width="65" alt="Avatar" />
-              <p>Active</p>
-            </div>
-            <HumanName
-              humanName={get(this.props, 'patient.name')}
-              nameInfo={get(this.props, 'info.nameInfo')}
-            />
+      
+      <div className={card}>
+        <div className={header}>
+          <div className={avatarContainer}>
+            <img src={avatar} height="65" width="65" alt="Avatar" />
+            <p>Active</p>
           </div>
-          <CenteredTabs className={tabsContainer} />
+          <HumanName
+            humanName={get(this.props, 'patient.name')}
+            nameInfo={get(this.props, 'info.nameInfo')}
+          />
         </div>
+        <CenteredTabs className={tabsContainer} />
       </div>
+      
     );
   }
 }
