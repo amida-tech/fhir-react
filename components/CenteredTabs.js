@@ -40,7 +40,7 @@ class CenteredTabs extends React.PureComponent {
 
   render() {
     return (
-      <MuiThemeProvider theme={tabsTheme}>
+      <>
         <Tabs
           value={this.state.value}
           onChange={this.handleChange}
@@ -52,7 +52,7 @@ class CenteredTabs extends React.PureComponent {
           <Tab label="Overview" />
           <Tab label="Contacts" />
         </Tabs>
-      </MuiThemeProvider>
+        </>
     );
   }
 }

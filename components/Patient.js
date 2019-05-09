@@ -3,14 +3,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { get } from 'lodash';
 import avatar from '../assets/avatar.png';
 import CenteredTabs from './CenteredTabs';
 import HumanName from './HumanName';
 
 
-const styles = {
+
+const defaultStyles = {
   card: {
     width: 315,
     height: 487,
@@ -50,36 +51,53 @@ const styles = {
   },
 };
 
-// Mike Wants Hooks
-// Also wants pure
+
 class Patient extends React.PureComponent {
   render() {
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
     const {
       card, header, avatarContainer, tabsContainer,
     } = classes;
+
+    const patientTheme = theme ? createMuiTheme(theme) : createMuiTheme({
+      typography: {
+        useNextVariants: true,
+        button: {
+          fontFamily: 'Source Sans Pro',
+          textTransform: 'capitalize',
+        },
+      },
+      palette: {
+        primary: {
+          main: '#829AB1',
+        },
+        // error: will use the default color
+      },
+    });
+
     return (
-      
-      <div className={card}>
-        <div className={header}>
-          <div className={avatarContainer}>
-            <img src={avatar} height="65" width="65" alt="Avatar" />
-            <p>Active</p>
+      <MuiThemeProvider theme={patientTheme}>
+        <div className={card}>
+          <div className={header}>
+            <div className={avatarContainer}>
+              <img src={avatar} height="65" width="65" alt="Avatar" />
+              <p>Active</p>
+            </div>
+            <HumanName
+              humanName={get(this.props, 'patient.name')}
+              nameInfo={get(this.props, 'info.nameInfo')}
+            />
           </div>
-          <HumanName
-            humanName={get(this.props, 'patient.name')}
-            nameInfo={get(this.props, 'info.nameInfo')}
-          />
+          <CenteredTabs className={tabsContainer} />
         </div>
-        <CenteredTabs className={tabsContainer} />
-      </div>
-      
+      </MuiThemeProvider>
     );
   }
 }
 
 Patient.propTypes = {
   classes: PropTypes.object,
+  theme: PropTypes.object,
 };
 
-export default withStyles(styles)(Patient);
+export default withStyles(defaultStyles)(Patient);
