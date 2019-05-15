@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Overview = props => ({
+const Overview = () => ({
   render() {
-    return(
+    return (
       <>
       </>
     );
-  }
-})
+  },
+});
 
 export default Overview;

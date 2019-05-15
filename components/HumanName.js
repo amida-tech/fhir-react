@@ -1,128 +1,140 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import InfoDropdown from './InfoDropdown';
-import { find, get, has, replace } from 'lodash';
+import {
+  find, get, has, replace,
+} from 'lodash';
 import moment from 'moment';
+import uuidv4 from 'uuid/v4';
 import { withStyles } from '@material-ui/core/styles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import InfoDropdown from './InfoDropdown';
 
 const styles = {
   humanName: {
-    'display': 'flex',
-    'flex-direction': 'row',
-    'align-items': 'center',
-    'justify-content': 'space-between'
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   humanNamePanel: {
-    'display': 'flex',
-    'align-items': 'center'
+    display: 'flex',
+    alignItems: 'center',
   },
   humanNameLabel: {
-    'font-family': 'Helvetica',
-    'font-size': '1.5em',
-    "font-style": "normal",
-    "font-weight": 400,
-    "color": "rgb(36, 59, 83)",
-    "padding-left": "1rem"
+    fontFamily: 'Helvetica',
+    fontSize: '1.5em',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    color: 'rgb(36, 59, 83)',
+    paddingLeft: '1rem',
 
   },
   humanNameMenuHeader: {
-    'font-family': 'Helvetica',
-    'font-size': '1.3em',
-    'color': '#243B53',
-    'margin-left': '5%',
-    'margin-bottom': '3%'
+    fontFamily: 'Helvetica',
+    fontSize: '1.3em',
+    color: '#243B53',
+    marginLeft: '5%',
+    marginBottom: '3%',
   },
   humanNameField: {
-    'display': 'flex',
-    'flex-direction': 'row',
-    'text-transform': 'capitalize'
+    display: 'flex',
+    flexDirection: 'row',
   },
   humanNameTableLabel: {
-    'font-family': 'Source Sans Pro',
-    'font-size': '1em',
-    'color': '#486581',
-    'margin-left': '15px',
-    'min-width': '80px'
+    fontFamily: 'Source Sans Pro',
+    fontSize: '1rem',
+    color: '#486581',
+    marginLeft: '15px',
+    minWidth: '80px',
+    textTransform: 'capitalize',
   },
   humanNameDetails: {
-    'display': 'flex',
-    'flex-direction': 'column',
-    'text-transform': 'capitalize'
+    display: 'flex',
+    flexDirection: 'column',
   },
   humanNameTableName: {
-    'font-family': 'Helvetica',
-    'font-size': '1em',
-    'font-weight': 'bold',
-    'color': '#243B53'
+    fontFamily: 'Helvetica',
+    fontSize: '1em',
+    fontWeight: 'bold',
+    color: '#243B53',
   },
   humanNameTablePeriod: {
-    'font-family': 'Source Sans Pro',
-    'font-size': '.9em',
-    'color': '#829AB1',
+    fontFamily: 'Source Sans Pro',
+    fontSize: '.9em',
+    color: '#829AB1',
   },
   iconInfo: {
-    'color': '#D3D3D3', // Be nice if we could use some preprocessor to render variables real soon.
-    'align-self': 'end'
-  }
+    color: '#D3D3D3', // Be nice if we could use some preprocessor to render variables real soon.
+    alignSelf: 'end',
+  },
 };
 
 class HumanName extends PureComponent {
-    nameConcatenator(nameRecord) {
-        return (replace(get(nameRecord, 'prefix', []), /,/g, ' ') + ' ' +
-        replace(get(nameRecord, 'given', []), /,/g, ' ') + ' ' +
-        get(nameRecord, 'family', '') + ' ' +
-        replace(get(nameRecord, 'suffix', []), /,/g, ' ')).trim();
-    }
-
-    menuGenerator(nameRecords) {
-      const fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || this.nameConcatenator(nameRecord));
-      const menuList = nameRecords.map((nameRecord, index) =>
-        <div key={'humanName' + index} className={this.props.classes.humanNameField}>
-          <div className={this.props.classes.humanNameTableLabel}>
-            {get(nameRecord, 'use', 'N/A')}
-          </div>
-          <div className={this.props.classes.humanNameDetails}>
-            <div className={this.props.classes.humanNameTableName}>
-              {fullNames[index]}
-            </div>
-            <div className={this.props.classes.humanNameTablePeriod}>
-              {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')} to {has(nameRecord, 'period.end') ?
-                moment(get(nameRecord, 'period.end')).format('MM/DD/YYYY') :
-                'Present'}
-            </div>
-          </div>
-        </div>);
-        menuList.unshift(
-          <div className={this.props.classes.humanNameMenuHeader}
-            key='additionalNames'>
-            Additional Names
-          </div>);
-        return menuList;
-    }
-
-    render() {
-      const patientName = find(get(this.props, 'humanName'), name => name.use === 'usual').text || find(get(this.props, 'humanName'), name => name.use === 'official').text;
-      return(
-        <div className={this.props.classes.humanName}>
-            <div className={this.props.classes.humanNamePanel}>
-              <label className={this.props.classes.humanNameLabel}>
-                  {patientName}
-              </label>
-              <InfoDropdown>
-                {this.menuGenerator(get(this.props, 'humanName'))}
-              </InfoDropdown>
-            </div>
-            {/* <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameInfo')}/> */}
-        </div>
-      );
-    }
+  static nameConcatenator(nameRecord) {
+    return (`${replace(get(nameRecord, 'prefix', []), /,/g, ' ')} ${
+      replace(get(nameRecord, 'given', []), /,/g, ' ')} ${
+      get(nameRecord, 'family', '')} ${
+      replace(get(nameRecord, 'suffix', []), /,/g, ' ')}`).trim();
   }
 
-  HumanName.propTypes = {
-    humanName: PropTypes.array,
-    nameInfo: PropTypes.string,
+  menuGenerator(nameRecords, classes) {
+    const fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
+    const menuList = nameRecords.map((nameRecord, index) => (
+      <div key={`humanName${uuidv4()}`} className={classes.humanNameField}>
+        <div className={classes.humanNameTableLabel}>
+          {get(nameRecord, 'use', 'N/A')}
+        </div>
+        <div className={classes.humanNameDetails}>
+          <div className={classes.humanNameTableName}>
+            {fullNames[index]}
+          </div>
+          <div className={classes.humanNameTablePeriod}>
+            {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')}
+            {' to '}
+            {has(nameRecord, 'period.end')
+              ? moment(get(nameRecord, 'period.end')).format('MM/DD/YYYY')
+              : 'Present'}
+          </div>
+        </div>
+      </div>
+    ));
+    menuList.unshift(
+      <div
+        className={classes.humanNameMenuHeader}
+        key="additionalNames"
+      >
+        Additional Names
+      </div>,
+    );
+    return menuList;
+  }
+
+  render() {
+    const patientName = find(get(this.props, 'humanName'), name => name.use === 'usual').text || find(get(this.props, 'humanName'), name => name.use === 'official').text;
+    const { classes } = this.props;
+    return (
+      <div className={classes.humanName}>
+        <div className={classes.humanNamePanel}>
+          <div className={classes.humanNameLabel}>
+            {patientName}
+          </div>
+          <InfoDropdown>
+            {this.menuGenerator(get(this.props, 'humanName'), classes)}
+          </InfoDropdown>
+        </div>
+        {/* <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameInfo')}/> */}
+      </div>
+    );
+  }
 }
+
+HumanName.propTypes = {
+  classes: PropTypes.object,
+  // humanName: PropTypes.array,
+  // nameInfo: PropTypes.string,
+};
 
 export default withStyles(styles)(HumanName);

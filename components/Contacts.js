@@ -1,12 +1,13 @@
 import React from 'react';
 
-const Contacts = props => ({
+const Contacts = () => ({
   render() {
-    return(
+    return (
       <>
+        {}
       </>
     );
-  }
-})
+  },
+});
 
 export default Contacts;

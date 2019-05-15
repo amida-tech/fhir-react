@@ -1,92 +1,88 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
 
 import React from 'react';
-import HumanName from '../components/HumanName';
-import CenteredTabs from './CenteredTabs';
-import { withStyles } from '@material-ui/core/styles';
-import { FormHelperText } from '@material-ui/core';
-import { grey } from '@material-ui/core/colors';
-import { black } from 'ansi-colors';
+import PropTypes from 'prop-types';
+import {
+  withStyles, withTheme,
+} from '@material-ui/core/styles';
+import { compose } from 'recompose';
+import Typography from '@material-ui/core/Typography';
+import { get } from 'lodash';
 import avatar from '../assets/avatar.png';
-import { rgb } from 'polished';
-import { AutoFocusInside } from 'react-focus-lock';
-import { find, get, has } from 'lodash';
-import moment from 'moment';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Paper from '@material-ui/core/Paper';
+import CenteredTabs from './CenteredTabs';
+import HumanName from './HumanName';
 
 
-const styles = {
-  background: {
-    width: 360,
-    height: 550,
-    background: "#F0F4F8",
-    position:"relative",
-    display: "flex",
-    "align-items": "center",
-    "justify-content": "center",
-    "box-shadow": "0px 3px 6px 0px rgba(246, 246, 246, 0.16)"
-  },
+const defaultStyles = theme => ({
   card: {
     width: 315,
     height: 487,
-    background: "#FFFFFF",
-    "box-shadow": "#BCCCDC",
-    display: "grid",
-    "grid-template-columns": "100%",
-    "grid-template-rows": "30% 70%",
-
+    background: '#FFFFFF',
+    borderRadius: '3px',
+    display: 'grid',
+    gridTemplateColumns: '100%',
+    gridTemplateRows: '30% 70%',
+    alignSelf: 'middle',
+    boxShadow: '2px 3px 10px 0px rgba(188, 204, 220)',
   },
   header: {
-
     width: 250,
     height: 90,
-    "justify-self": "center",
-    "align-self":"center",
-    display: "grid",
-    "grid-template-columns": "65px auto",
-    "grid-template-rows": "65px auto",
-    "grid-row": 1
+    justifySelf: 'center',
+    alignSelf: 'center',
+    display: 'grid',
+    gridTemplateColumns: '65px auto',
+    gridTemplateRows: '65px auto',
+    gridRow: 1,
   },
   avatarContainer: {
-    "grid-column": 1,
-    "grid-row": "1/ span 2",
-    "text-align": "center",
-    "& p": {
-      "margin-top":5,
-      "font-size": 16,
-      "font-family": "Source Sans Pro",
-      "font-weight": "500",
-      "color": "rgb(98, 125, 152)"
-    }
+    gridColumn: 1,
+    gridRow: '1/ span 2',
+    textAlign: 'center',
+  },
+  activeLabel: {
+    marginTop: 5,
+    color: theme.palette.primary.main,
   },
   tabsContainer: {
-    "grid-row": 2,
-    zIndex: 0
-  }
-};
-// Mike Wants Hooks
-// Also wants pure
-const Patient = props => {
-  console.log(props);
-  let { classes } = props;
-  const patientIdentifier = find(get(props, 'patient.identifier'), identifier => identifier.use === 'official');
+    gridRow: 2,
+    zIndex: 0,
+  },
+});
 
-  return(
-    <div className = {classes.background}>
-      <div className = {classes.card}>
-        <div className = {classes.header}>
-          <div className = {classes.avatarContainer}>
-              <img src={avatar} height="65" width = "65" alt="Avatar" />
-              <p>Active</p>
+class Patient extends React.PureComponent {
+  render() {
+    const { classes } = this.props;
+    const {
+      card, header, avatarContainer, tabsContainer, activeLabel,
+    } = classes;
+
+    return (
+      <div className={card}>
+        <div className={header}>
+          <div className={avatarContainer}>
+            <img src={avatar} height="65" width="65" alt="Avatar" />
+            <Typography variant="subtitle1" className={activeLabel}>
+              Active
+            </Typography>
           </div>
-          <HumanName humanName={get(props, 'patient.name')}
-              nameInfo={get(props, 'info.nameInfo')}/>
+          <HumanName
+            humanName={get(this.props, 'patient.name')}
+            nameInfo={get(this.props, 'info.nameInfo')}
+          />
         </div>
-        <CenteredTabs clasName={classes.tabsContainer}/>
+        <CenteredTabs className={tabsContainer} />
       </div>
-    </div>
-  );
+    );
+  }
+}
+
+Patient.propTypes = {
+  classes: PropTypes.object,
 };
 
-export default withStyles(styles)(Patient);
+export default compose(
+  withTheme(),
+  withStyles(defaultStyles),
+)(Patient);
