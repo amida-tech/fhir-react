@@ -1,7 +1,11 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import {
+  withStyles, withTheme,
+} from '@material-ui/core/styles';
+import { compose } from 'recompose';
+import { get } from 'lodash';
 
-const defaultStyles = () => ({ // theme?
+const defaultStyles = theme => ({
   DataRow: {
     display: 'flex',
     alignItems: 'center',
@@ -32,7 +36,7 @@ const defaultStyles = () => ({ // theme?
   DataRowDetails: {
     fontFamily: 'Source Sans Pro',
     fontSize: '.9rem',
-    color: '#829AB1',
+    color: get(theme, 'palette.primary.main', '#829AB1'),
   },
 });
 
@@ -57,4 +61,7 @@ const DataRow = ({ label, value, details }) => ({
   },
 });
 
-export default withStyles(defaultStyles)(DataRow);
+export default compose(
+  withTheme(),
+  withStyles(defaultStyles),
+)(DataRow);

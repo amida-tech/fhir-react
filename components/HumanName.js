@@ -11,7 +11,7 @@ import { withStyles } from '@material-ui/core/styles';
 import DataRow from './shared/DataRow';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import InfoDropdown from './InfoDropdown';
+import InfoDropdown from './shared/InfoDropdown';
 
 const styles = {
   humanName: {

@@ -3,6 +3,8 @@ export default ({
     primary: {
       main: '#829AB1',
     },
+    dark: '#243B53',
+    middark: '#486581',
   },
   typography: {
     useNextVariants: true,
