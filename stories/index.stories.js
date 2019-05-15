@@ -2,29 +2,30 @@ import React from 'react';
 import Patient from '../components/Patient';
 import HumanName from '../components/HumanName';
 import { patient as Marion, info } from '../data/Marion';
-import { storiesOf } from '@storybook/react';
+import { storiesOf, addDecorator } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
+import { object, withKnobs } from '@storybook/addon-knobs';
 
 import { Button, Welcome } from '@storybook/react/demo';
 import { themes } from '@storybook/theming';
 import xd from '../themes/xd';
 
-
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Patient')} />);
+addDecorator(withKnobs)
 
 storiesOf('Patient', module)
-.addParameters({ options: { theme: xd } })
+  .addParameters({ options: { theme: xd } })
   .add('Hello World', () => (
     <div>
-      <Patient patient={Marion} 
-        info={info}/>  
+      <Patient
+        patient={object('Patient', Marion)}
+        info={info}
+      />
     </div>
-    
   ));
 
 storiesOf('TALES OF SUSPENSE AND HUMAN NAMES', module)
   .add('Because Riley made me change it', () => (
-    <HumanName humanName={Marion.name} 
+    <HumanName humanName={object('Name', Marion.name)}
       nameInfo={info.nameInfo}/>
   ));

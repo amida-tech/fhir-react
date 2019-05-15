@@ -35,10 +35,10 @@ const styles = {
     display: "grid",
     "grid-template-columns": "100%",
     "grid-template-rows": "30% 70%",
-    
+
   },
   header: {
-    
+
     width: 250,
     height: 90,
     "justify-self": "center",
@@ -67,29 +67,26 @@ const styles = {
 };
 // Mike Wants Hooks
 // Also wants pure
-const Patient = props => ({
+const Patient = props => {
+  console.log(props);
+  let { classes } = props;
+  const patientIdentifier = find(get(props, 'patient.identifier'), identifier => identifier.use === 'official');
 
-  render() {
-    console.log(props);
-    let { classes } = props;
-    const patientIdentifier = find(get(props, 'patient.identifier'), identifier => identifier.use === 'official');
-
-    return(
-      <div className = {classes.background}>
-        <div className = {classes.card}>
-          <div className = {classes.header}>
-            <div className = {classes.avatarContainer}>
-                <img src={avatar} height="65" width = "65" alt="Avatar" />
-                <p>Active</p>
-            </div>
-            <HumanName humanName={get(props, 'patient.name')} 
-                nameInfo={get(props, 'info.nameInfo')}/>
+  return(
+    <div className = {classes.background}>
+      <div className = {classes.card}>
+        <div className = {classes.header}>
+          <div className = {classes.avatarContainer}>
+              <img src={avatar} height="65" width = "65" alt="Avatar" />
+              <p>Active</p>
           </div>
-          <CenteredTabs clasName={classes.tabsContainer}/>
+          <HumanName humanName={get(props, 'patient.name')}
+              nameInfo={get(props, 'info.nameInfo')}/>
         </div>
+        <CenteredTabs clasName={classes.tabsContainer}/>
       </div>
-    );
-  }
-});
+    </div>
+  );
+};
 
 export default withStyles(styles)(Patient);
