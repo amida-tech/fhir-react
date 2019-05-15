@@ -58,3 +58,19 @@ storiesOf('Default Address', module)
       </div>
     );
   });
+
+storiesOf('Default Relationship Filter', module)
+  .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
+  .add('Default Theme', () => {
+    const theme = createMuiTheme(DefaultTheme);
+
+    return (
+      <div>
+        <MuiThemeProvider theme={theme}>
+          <Address
+            address={get(Marion, 'address')}
+          />
+        </MuiThemeProvider>
+      </div>
+    );
+  });
