@@ -16,7 +16,6 @@ import HumanName from './HumanName';
 
 const defaultStyles = theme => ({
   card: {
-    width: 315,
     height: 487,
     background: '#FFFFFF',
     borderRadius: '3px',
@@ -27,7 +26,7 @@ const defaultStyles = theme => ({
     boxShadow: '2px 3px 10px 0px rgba(188, 204, 220)',
   },
   header: {
-    width: 250,
+    width: '80%',
     height: 90,
     justifySelf: 'center',
     alignSelf: 'center',
@@ -57,7 +56,6 @@ class Patient extends React.PureComponent {
     const {
       card, header, avatarContainer, tabsContainer, activeLabel,
     } = classes;
-
     return (
       <div className={card}>
         <div className={header}>

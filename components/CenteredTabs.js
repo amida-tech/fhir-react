@@ -16,7 +16,7 @@ class CenteredTabs extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0,
+      value: 1,
     };
   }
 

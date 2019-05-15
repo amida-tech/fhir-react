@@ -54,6 +54,10 @@ const styles = {
   humanNameDetails: {
     display: 'flex',
     flexDirection: 'column',
+    minWidth: '145px',
+    textOverflow: 'clip',
+    overflow: 'auto',
+    whiteSpace: 'normal',
   },
   humanNameTableName: {
     fontFamily: 'Helvetica',
@@ -82,7 +86,8 @@ class HumanName extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.patientName = find(get(this.props, 'humanName'), name => name.use === 'usual').text || find(get(this.props, 'humanName'), name => name.use === 'official').text;
+    const patientUse = find(get(this.props, 'humanName'), name => name.use === 'usual') || find(get(this.props, 'humanName'), name => name.use === 'official');
+    this.patientName = patientUse.text || `${patientUse.given.join(' ')} ${patientUse.family}`;
     this.fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
   }
 
@@ -98,7 +103,7 @@ class HumanName extends PureComponent {
           </div>
           <div className={classes.humanNameTablePeriod}>
             {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')}
-            {' to '}
+            {' - '}
             {has(nameRecord, 'period.end')
               ? moment(get(nameRecord, 'period.end')).format('MM/DD/YYYY')
               : 'Present'}
