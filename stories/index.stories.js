@@ -9,41 +9,39 @@ import { get } from 'lodash';
 import storybookTheme from '../themes/xd';
 import DefaultTheme from '../themes/default';
 
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Patient')} />);
+storiesOf('Patient', module)
+  .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
+  .add('Default Theme', () => {
+    const theme = createMuiTheme(DefaultTheme);
 
-// storiesOf('Patient', module)
-//   .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
-//   .add('Default Theme', () => {
-//     const theme = createMuiTheme(DefaultTheme);
-
-//     return (
-//       <div>
-//         <MuiThemeProvider theme={theme}>   
-//           <Patient
-//             patient={Marion}
-//             fhirDescriptions={fhirDescriptions}
-//           />
-//         </MuiThemeProvider>
-//       </div>
-//     );
-//   });
+    return (
+      <div>
+        <MuiThemeProvider theme={theme}>   
+          <Patient
+            patient={Marion}
+            fhirDescriptions={fhirDescriptions}
+          />
+        </MuiThemeProvider>
+      </div>
+    );
+  });
 
 
-// storiesOf('Default HumanName', module)
-//   .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
-//   .add('Default Theme', () => {
-//     const theme = createMuiTheme(DefaultTheme);
+storiesOf('Default HumanName', module)
+  .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
+  .add('Default Theme', () => {
+    const theme = createMuiTheme(DefaultTheme);
 
-//     return (
-//       <div>
-//         <MuiThemeProvider theme={theme}>
-//           <HumanName
-//             humanName={get(Marion, 'name')}
-//           />
-//         </MuiThemeProvider>
-//       </div>
-//     );
-//   });
+    return (
+      <div>
+        <MuiThemeProvider theme={theme}>
+          <HumanName
+            humanName={get(Marion, 'name')}
+          />
+        </MuiThemeProvider>
+      </div>
+    );
+  });
 
 storiesOf('Default Address', module)
   .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
