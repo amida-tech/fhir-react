@@ -6,6 +6,7 @@ import { Welcome } from '@storybook/react/demo';
 import { patient as Marion, info } from '../data/Marion';
 import patientExamples from '../data/HL7-Examples/patient-examples-general.json';
 import Patient from '../components/Patient';
+import DataRow from '../components/shared/DataRow';
 import storybookTheme from '../themes/xd';
 import DefaultTheme from '../themes/default';
 
@@ -35,9 +36,9 @@ storiesOf('Patient - Eve Everywoman', module)
     return (
       <div>
         <MuiThemeProvider theme={theme}>
-          <Patient
-            patient={patientExamples.entry[0].resource}
-            info={info}
+          <DataRow
+            label="gender"
+            value={patientExamples.entry[0].resource.gender}
           />
         </MuiThemeProvider>
       </div>

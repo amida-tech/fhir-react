@@ -1,0 +1,60 @@
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+
+const defaultStyles = () => ({ // theme?
+  DataRow: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  DataRowLabel: {
+    fontFamily: 'Source Sans Pro',
+    fontSize: '1rem',
+    color: '#486581',
+    marginLeft: '15px',
+    minWidth: '80px',
+    textTransform: 'capitalize',
+  },
+  DataRowGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    minWidth: '145px',
+    textOverflow: 'clip',
+    overflow: 'auto',
+    whiteSpace: 'normal',
+    textTransform: 'capitalize',
+  },
+  DataRowValue: {
+    fontFamily: 'Helvetica',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    color: '#243B53',
+  },
+  DataRowDetails: {
+    fontFamily: 'Source Sans Pro',
+    fontSize: '.9rem',
+    color: '#829AB1',
+  },
+});
+
+const DataRow = ({ label, value, details }) => ({
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.DataRow}>
+        <div className={classes.DataRowLabel}>
+          {label}
+        </div>
+        <div className={classes.DataRowGroup}>
+          <div className={classes.DataRowValue}>
+            {value}
+          </div>
+          <div className={classes.DataRowDetails}>
+            {details}
+          </div>
+        </div>
+      </div>
+    );
+  },
+});
+
+export default withStyles(defaultStyles)(DataRow);

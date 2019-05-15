@@ -8,6 +8,7 @@ import {
 import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 import { withStyles } from '@material-ui/core/styles';
+import DataRow from './shared/DataRow';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import InfoDropdown from './InfoDropdown';
@@ -39,10 +40,6 @@ const styles = {
     marginLeft: '5%',
     marginBottom: '3%',
   },
-  humanNameField: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
   humanNameTableLabel: {
     fontFamily: 'Source Sans Pro',
     fontSize: '1rem',
@@ -50,25 +47,6 @@ const styles = {
     marginLeft: '15px',
     minWidth: '80px',
     textTransform: 'capitalize',
-  },
-  humanNameDetails: {
-    display: 'flex',
-    flexDirection: 'column',
-    minWidth: '145px',
-    textOverflow: 'clip',
-    overflow: 'auto',
-    whiteSpace: 'normal',
-  },
-  humanNameTableName: {
-    fontFamily: 'Helvetica',
-    fontSize: '1em',
-    fontWeight: 'bold',
-    color: '#243B53',
-  },
-  humanNameTablePeriod: {
-    fontFamily: 'Source Sans Pro',
-    fontSize: '.9em',
-    color: '#829AB1',
   },
   iconInfo: {
     color: '#D3D3D3', // Be nice if we could use some preprocessor to render variables real soon.
@@ -93,23 +71,15 @@ class HumanName extends PureComponent {
 
   menuGenerator(nameRecords, classes) {
     const menuList = nameRecords.map((nameRecord, index) => (
-      <div key={`humanName${uuidv4()}`} className={classes.humanNameField}>
-        <div className={classes.humanNameTableLabel}>
-          {get(nameRecord, 'use', 'N/A')}
-        </div>
-        <div className={classes.humanNameDetails}>
-          <div className={classes.humanNameTableName}>
-            {this.fullNames[index]}
-          </div>
-          <div className={classes.humanNameTablePeriod}>
-            {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')}
-            {' - '}
-            {has(nameRecord, 'period.end')
-              ? moment(get(nameRecord, 'period.end')).format('MM/DD/YYYY')
-              : 'Present'}
-          </div>
-        </div>
-      </div>
+      <DataRow
+        key={`humanName${uuidv4()}`}
+        label={get(nameRecord, 'use', 'N/A')}
+        value={this.fullNames[index]}
+        details={`${moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')
+        } - ${has(nameRecord, 'period.end')}`
+          ? moment(get(nameRecord, 'period.end')).format('MM/DD/YYYY')
+          : 'Present'}
+      />
     ));
     menuList.unshift(
       <div
