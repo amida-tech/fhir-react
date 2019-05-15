@@ -19,7 +19,7 @@ storiesOf('Patient', module)
     <div>
       <Patient
         patient={object('Patient', Marion)}
-        info={info}
+        info={object('Info', info)}
       />
     </div>
   ));
@@ -27,5 +27,5 @@ storiesOf('Patient', module)
 storiesOf('TALES OF SUSPENSE AND HUMAN NAMES', module)
   .add('Because Riley made me change it', () => (
     <HumanName humanName={object('Name', Marion.name)}
-      nameInfo={info.nameInfo}/>
+      nameInfo={object('Name Info', info.nameInfo)}/>
   ));

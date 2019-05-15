@@ -63,34 +63,29 @@ const styles = {
     'color': '#829AB1',
   },
   iconInfo: {
-    'color': '#D3D3D3', // Be nice if we could use some preprocessor to render variables real soon. 
+    'color': '#D3D3D3', // Be nice if we could use some preprocessor to render variables real soon.
     'align-self': 'end'
   }
 };
 
 class HumanName extends PureComponent {
-    constructor(props) {
-      super(props);
-      this.patientName = find(get(this.props, 'humanName'), name => name.use === 'usual').text || find(get(this.props, 'humanName'), name => name.use === 'official').text;
-      this.fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || this.nameConcatenator(nameRecord));
-    };
-    
     nameConcatenator(nameRecord) {
-        return (replace(get(nameRecord, 'prefix', []), /,/g, ' ') + ' ' + 
+        return (replace(get(nameRecord, 'prefix', []), /,/g, ' ') + ' ' +
         replace(get(nameRecord, 'given', []), /,/g, ' ') + ' ' +
         get(nameRecord, 'family', '') + ' ' +
         replace(get(nameRecord, 'suffix', []), /,/g, ' ')).trim();
     }
 
     menuGenerator(nameRecords) {
-      const menuList = nameRecords.map((nameRecord, index) => 
+      const fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || this.nameConcatenator(nameRecord));
+      const menuList = nameRecords.map((nameRecord, index) =>
         <div key={'humanName' + index} className={this.props.classes.humanNameField}>
           <div className={this.props.classes.humanNameTableLabel}>
             {get(nameRecord, 'use', 'N/A')}
           </div>
           <div className={this.props.classes.humanNameDetails}>
             <div className={this.props.classes.humanNameTableName}>
-              {this.fullNames[index]}
+              {fullNames[index]}
             </div>
             <div className={this.props.classes.humanNameTablePeriod}>
               {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')} to {has(nameRecord, 'period.end') ?
@@ -98,7 +93,7 @@ class HumanName extends PureComponent {
                 'Present'}
             </div>
           </div>
-        </div>); 
+        </div>);
         menuList.unshift(
           <div className={this.props.classes.humanNameMenuHeader}
             key='additionalNames'>
@@ -106,13 +101,14 @@ class HumanName extends PureComponent {
           </div>);
         return menuList;
     }
-    
+
     render() {
+      const patientName = find(get(this.props, 'humanName'), name => name.use === 'usual').text || find(get(this.props, 'humanName'), name => name.use === 'official').text;
       return(
         <div className={this.props.classes.humanName}>
             <div className={this.props.classes.humanNamePanel}>
               <label className={this.props.classes.humanNameLabel}>
-                  {this.patientName}
+                  {patientName}
               </label>
               <InfoDropdown>
                 {this.menuGenerator(get(this.props, 'humanName'))}
@@ -128,5 +124,5 @@ class HumanName extends PureComponent {
     humanName: PropTypes.array,
     nameInfo: PropTypes.string,
 }
-  
+
 export default withStyles(styles)(HumanName);
