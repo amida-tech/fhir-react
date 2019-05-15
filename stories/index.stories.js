@@ -1,11 +1,9 @@
 import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { storiesOf } from '@storybook/react';
-import { linkTo } from '@storybook/addon-links';
-import { Welcome } from '@storybook/react/demo';
-import { patient as Marion, fhirDescriptions } from '../data/Marion';
-import { Patient, HumanName, Address, Contacts } from '../components';
 import { get } from 'lodash';
+import { patient as Marion, fhirDescriptions } from '../data/Marion';
+import { Patient, HumanName, Address } from '../components';
 import storybookTheme from '../themes/xd';
 import DefaultTheme from '../themes/default';
 
@@ -58,3 +56,4 @@ storiesOf('Default Address', module)
       </div>
     );
   });
+
