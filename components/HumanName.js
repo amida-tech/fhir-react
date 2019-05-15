@@ -82,6 +82,7 @@ class HumanName extends PureComponent {
 
   constructor(props) {
     super(props);
+    console.log(props)
     this.patientName = find(get(this.props, 'humanName'), name => name.use === 'usual').text || find(get(this.props, 'humanName'), name => name.use === 'official').text;
     this.fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
   }
@@ -129,7 +130,7 @@ class HumanName extends PureComponent {
             {this.menuGenerator(get(this.props, 'humanName'), classes)}
           </InfoDropdown>
         </div>
-        {/* <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameInfo')}/> */}
+        {/* <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameDescription')}/> */}
       </div>
     );
   }
@@ -138,7 +139,7 @@ class HumanName extends PureComponent {
 HumanName.propTypes = {
   classes: PropTypes.object,
   // humanName: PropTypes.array,
-  // nameInfo: PropTypes.string,
+  // nameDescription: PropTypes.string,
 };
 
 export default withStyles(styles)(HumanName);

@@ -94,8 +94,8 @@ export const patient = {
     ]
   };
 
-  export const info = {
-    nameInfo: 'Information about an individual or animal receiving health care services.',
-    identifierInfo: 'An identifier for this patient. Identity likely provided by managing organization.',
-    addressInfo: 'Other or past addresses this individual or organization has used.',
+  export const fhirDescriptions = {
+    nameDescription: 'Information about an individual or animal receiving health care services.',
+    identifierDescription: 'An identifier for this patient. Identity likely provided by managing organization.',
+    addressDescription: 'Other or past addresses this individual or organization has used.',
   };
