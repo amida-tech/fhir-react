@@ -80,14 +80,8 @@ class HumanName extends PureComponent {
       replace(get(nameRecord, 'suffix', []), /,/g, ' ')}`).trim();
   }
 
-  constructor(props) {
-    super(props);
-    console.log(props)
-    this.patientName = find(get(this.props, 'humanName'), name => name.use === 'usual').text || find(get(this.props, 'humanName'), name => name.use === 'official').text;
-    this.fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
-  }
-
   menuGenerator(nameRecords, classes) {
+    const fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
     const menuList = nameRecords.map((nameRecord, index) => (
       <div key={`humanName${uuidv4()}`} className={classes.humanNameField}>
         <div className={classes.humanNameTableLabel}>
@@ -95,7 +89,7 @@ class HumanName extends PureComponent {
         </div>
         <div className={classes.humanNameDetails}>
           <div className={classes.humanNameTableName}>
-            {this.fullNames[index]}
+            {fullNames[index]}
           </div>
           <div className={classes.humanNameTablePeriod}>
             {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')}
@@ -119,12 +113,13 @@ class HumanName extends PureComponent {
   }
 
   render() {
+    const patientName = find(get(this.props, 'humanName'), name => name.use === 'usual').text || find(get(this.props, 'humanName'), name => name.use === 'official').text;
     const { classes } = this.props;
     return (
       <div className={classes.humanName}>
         <div className={classes.humanNamePanel}>
           <div className={classes.humanNameLabel}>
-            {this.patientName}
+            {patientName}
           </div>
           <InfoDropdown>
             {this.menuGenerator(get(this.props, 'humanName'), classes)}
