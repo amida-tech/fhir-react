@@ -1,6 +1,3 @@
-// 20190508150316
-// https://www.hl7.org/fhir/patient-example-newborn.json
-
 {
   "resourceType": "Patient",
   "id": "newborn",

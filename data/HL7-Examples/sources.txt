@@ -1,0 +1,38 @@
+// 20190508150008
+// https://www.hl7.org/fhir/patient-example-chinese.json
+
+// 20190508145606
+// http://hl7.org/fhir/patient-example-f001-pieter.json
+
+// 20190508145658
+// http://hl7.org/fhir/patient-example-f201-roel.json
+
+// 20190508150613
+// https://www.hl7.org/fhir/patient-example-infant-fetal.json
+
+// 20190508150654
+// https://www.hl7.org/fhir/patient-example-infant-mom.json
+
+// 20190508150526
+// https://www.hl7.org/fhir/patient-example-infant-twin-1.json
+
+// 20190508150558
+// https://www.hl7.org/fhir/patient-example-infant-twin-2.json
+
+// 20190508150316
+// https://www.hl7.org/fhir/patient-example-newborn.json
+
+// 20190508145814
+// https://www.hl7.org/fhir/patient-example-proband.json
+
+// 20190508145306
+// https://www.hl7.org/fhir/patient-example-xcda.json
+
+// 20190508145214
+// https://www.hl7.org/fhir/patient-examples-cypress-template.json
+
+// 20190508145856
+// https://www.hl7.org/fhir/patient-genetics-example1.json
+
+// 20190508145749
+// http://hl7.org/fhir/patient-glossy-example.json

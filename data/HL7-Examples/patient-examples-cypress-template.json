@@ -1,6 +1,3 @@
-// 20190508145214
-// https://www.hl7.org/fhir/patient-examples-cypress-template.json
-
 {
   "resourceType": "Bundle",
   "id": "b0a5e4277-83c4-4adb-87e2-e3efe3369b6f",
