@@ -5,7 +5,7 @@ import { withStyles, withTheme } from '@material-ui/core/styles';
 import { compose } from 'recompose';
 
 
-const defaultStyles = theme => ({
+const styles = theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
@@ -49,5 +49,5 @@ class CenteredTabs extends React.PureComponent {
 
 export default compose(
   withTheme(),
-  withStyles(defaultStyles),
+  withStyles(styles),
 )(CenteredTabs);

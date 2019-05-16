@@ -8,8 +8,6 @@ import {
 import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 import { withStyles } from '@material-ui/core/styles';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import InfoDropdown from './InfoDropdown';
 
 const styles = {
@@ -125,7 +123,7 @@ class HumanName extends PureComponent {
             {this.menuGenerator(get(this.props, 'humanName'), classes)}
           </InfoDropdown>
         </div>
-        {/* <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameInfo')}/> */}
+        {/* <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameDescription')}/> */}
       </div>
     );
   }
@@ -134,7 +132,7 @@ class HumanName extends PureComponent {
 HumanName.propTypes = {
   classes: PropTypes.object,
   // humanName: PropTypes.array,
-  // nameInfo: PropTypes.string,
+  // nameDescription: PropTypes.string,
 };
 
 export default withStyles(styles)(HumanName);
