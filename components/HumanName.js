@@ -113,13 +113,13 @@ class HumanName extends PureComponent {
   }
 
   render() {
-    const patientName = find(get(this.props, 'humanName'), name => name.use === 'usual').text || find(get(this.props, 'humanName'), name => name.use === 'official').text;
+    const patientName = find(get(this.props, 'humanName'), name => name.use === 'usual') || find(get(this.props, 'humanName'), name => name.use === 'official');
     const { classes } = this.props;
     return (
       <div className={classes.humanName}>
         <div className={classes.humanNamePanel}>
           <div className={classes.humanNameLabel}>
-            {patientName}
+            {patientName && patientName.text}
           </div>
           <InfoDropdown>
             {this.menuGenerator(get(this.props, 'humanName'), classes)}

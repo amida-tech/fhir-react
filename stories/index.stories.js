@@ -2,8 +2,9 @@ import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { storiesOf } from '@storybook/react';
 import { get } from 'lodash';
-import { object, withKnobs } from '@storybook/addon-knobs';
+import { select, object, withKnobs } from '@storybook/addon-knobs';
 import { patient as Marion, fhirDescriptions } from '../data/Marion';
+import { patientExamples } from '../data/examples';
 import { Patient, HumanName, Address } from '../components';
 import storybookTheme from '../themes/xd';
 import DefaultTheme from '../themes/default';
@@ -13,7 +14,6 @@ storiesOf('Patient', module)
   .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
   .add('Default Theme', () => {
     const theme = createMuiTheme(DefaultTheme);
-
     return (
       <div>
         <MuiThemeProvider theme={theme}>
@@ -24,8 +24,24 @@ storiesOf('Patient', module)
         </MuiThemeProvider>
       </div>
     );
+  })
+  .add('With Patient Dropdown', () => {
+    const theme = createMuiTheme(DefaultTheme);
+    const patientOptions = {
+      Marion,
+      ...patientExamples,
+    };
+    return (
+      <div>
+        <MuiThemeProvider theme={theme}>
+          <Patient
+            patient={select('Patient', patientOptions, Marion, 'Patient')}
+            fhirDescriptions={fhirDescriptions}
+          />
+        </MuiThemeProvider>
+      </div>
+    );
   });
-
 
 storiesOf('Default HumanName', module)
   .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
@@ -60,4 +76,3 @@ storiesOf('Default Address', module)
       </div>
     );
   });
-
