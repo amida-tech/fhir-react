@@ -4,9 +4,10 @@ import { storiesOf } from '@storybook/react';
 import { linkTo } from '@storybook/addon-links';
 import { Welcome } from '@storybook/react/demo';
 import { patient as Marion, info } from '../data/Marion';
-import patientExamples from '../data/HL7-Examples/patient-examples-general.json';
-import Patient from '../components/Patient';
+// import patientExamples from '../data/HL7-Examples/patient-examples-general.json';
 import DataRow from '../components/shared/DataRow';
+import Patient from '../components/Patient';
+import InfoExpansion from '../components/shared/InfoExpansion';
 import storybookTheme from '../themes/xd';
 import DefaultTheme from '../themes/default';
 
@@ -34,12 +35,31 @@ storiesOf('Patient - Eve Everywoman', module)
   .add('Contacts', () => {
     const theme = createMuiTheme(DefaultTheme);
     return (
-      <div>
+      <div style={{ backgroundColor: '#fff', height: '600px' }}>
         <MuiThemeProvider theme={theme}>
-          <DataRow
-            label="gender"
-            value={patientExamples.entry[0].resource.gender}
-          />
+          <InfoExpansion
+            title="Rico Suave"
+            details="05/12/1982 - Present"
+          >
+            <DataRow
+              label="Relationship"
+              value="Brother"
+            />
+            <DataRow
+              label="Relationship"
+              value="Dancer"
+              details="11/20/1977 - 12/14/2017"
+            />
+          </InfoExpansion>
+          <InfoExpansion
+            title="Seymour Butts"
+            details="05/12/1982 - 09/12/2009"
+          >
+            <DataRow
+              label="Relationship"
+              value="Father"
+            />
+          </InfoExpansion>
         </MuiThemeProvider>
       </div>
     );

@@ -3,8 +3,11 @@ export default ({
     primary: {
       main: '#829AB1',
     },
-    dark: '#243B53',
-    middark: '#486581',
+    tertiary: {
+      main: '#F0F4F8',
+    },
+    dark: '#243B53', // Need to figure out the order of this stuff. For now, going to leave it here.
+    middark: '#486581', // Ditto.
   },
   typography: {
     useNextVariants: true,

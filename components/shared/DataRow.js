@@ -8,7 +8,9 @@ import { get } from 'lodash';
 const defaultStyles = theme => ({
   DataRow: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'baseline',
+    justifyContent: 'space-around',
+    margin: '1em',
   },
   DataRowLabel: {
     fontFamily: 'Source Sans Pro',
@@ -45,16 +47,17 @@ const DataRow = ({ label, value, details }) => ({
     const { classes } = this.props;
     return (
       <div className={classes.DataRow}>
-        <div className={classes.DataRowLabel}>
+        <span className={classes.DataRowLabel}>
           {label}
-        </div>
+        </span>
+        <span className={classes.DataRowDetails} />
         <div className={classes.DataRowGroup}>
-          <div className={classes.DataRowValue}>
+          <span className={classes.DataRowValue}>
             {value}
-          </div>
-          <div className={classes.DataRowDetails}>
+          </span>
+          <span className={classes.DataRowDetails}>
             {details}
-          </div>
+          </span>
         </div>
       </div>
     );
