@@ -8,8 +8,6 @@ import {
 import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 import { withStyles } from '@material-ui/core/styles';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import InfoDropdown from './InfoDropdown';
 
 const styles = {
