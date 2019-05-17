@@ -71,12 +71,6 @@ class HumanName extends PureComponent {
       replace(get(nameRecord, 'suffix', []), /,/g, ' ')}`).trim();
   }
 
-  constructor(props) {
-    super(props);
-    this.headerName = HumanName.preferredName(get(this.props, 'humanName'));
-    this.fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
-  }
-
   menuGenerator(nameRecords, classes) {
     const fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
     const menuList = nameRecords.map((nameRecord, index) => (
@@ -105,7 +99,7 @@ class HumanName extends PureComponent {
       <div className={classes.humanName}>
         <div className={classes.humanNamePanel}>
           <div className={classes.humanNameLabel}>
-            {this.headerName}
+            {HumanName.preferredName(get(this.props, 'humanName'))}
           </div>
           <InfoDropdown>
             {this.menuGenerator(get(this.props, 'humanName'), classes)}

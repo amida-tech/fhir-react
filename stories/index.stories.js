@@ -36,7 +36,7 @@ storiesOf('Patient', module)
       <div>
         <MuiThemeProvider theme={theme}>
           <Patient
-            patient={select('Patient', patientOptions, Marion, 'Patient')}
+            patient={select('Patient', patientOptions, patientExamples.PatientPieter, 'Patient')}
             fhirDescriptions={fhirDescriptions}
           />
         </MuiThemeProvider>
@@ -80,13 +80,14 @@ storiesOf('Default Address', module)
 
 storiesOf('Patient - Eve Everywoman', module)
   .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
+  .addDecorator(withKnobs)
   .add('Contacts', () => {
     const theme = createMuiTheme(DefaultTheme);
     return (
       <div style={{ backgroundColor: '#fff', height: '600px' }}>
         <MuiThemeProvider theme={theme}>
           <Contacts
-            contact={object('Patient', patientExamples.PatientPieter.contact)}
+            contact={patientExamples.PatientPieter.contact}
           />
         </MuiThemeProvider>
       </div>

@@ -1,11 +1,15 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import { compose } from 'recompose';
+import PropTypes from 'prop-types';
+import Contacts from './Contacts';
 
 
-const styles = theme => ({
+const defaultStyles = theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
@@ -24,12 +28,15 @@ class CenteredTabs extends React.PureComponent {
     this.setState({ value });
   };
 
+
+  // This is not reusable. Steven, please take a harder look at this.
   render() {
     const { state, handleChange } = this;
     const { value } = state;
+    const { contact, classes } = this.props;
 
     return (
-      <>
+      <div className={classes.CenteredTabs}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -41,13 +48,22 @@ class CenteredTabs extends React.PureComponent {
           <Tab label="Overview" />
           <Tab label="Contacts" />
         </Tabs>
-      </>
+        {value === 1 && (
+          <Contacts
+            contact={contact}
+          />
+        )}
+      </div>
     );
   }
 }
 
+CenteredTabs.propTypes = {
+  contact: PropTypes.array,
+  classes: PropTypes.object,
+};
 
 export default compose(
   withTheme(),
-  withStyles(styles),
+  withStyles(defaultStyles),
 )(CenteredTabs);
