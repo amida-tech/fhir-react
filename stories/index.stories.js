@@ -3,7 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { storiesOf } from '@storybook/react';
 import { get } from 'lodash';
 import { patient as Marion, fhirDescriptions } from '../data/Marion';
-import { Patient, HumanName, Address } from '../components';
+import { Patient, HumanName, Address, RelationshipFilter } from '../components';
 import storybookTheme from '../themes/xd';
 import DefaultTheme from '../themes/default';
 
@@ -65,9 +65,7 @@ storiesOf('Default Relationship Filter', module)
     return (
       <div>
         <MuiThemeProvider theme={theme}>
-          <Address
-            address={get(Marion, 'address')}
-          />
+          <RelationshipFilter />
         </MuiThemeProvider>
       </div>
     );
