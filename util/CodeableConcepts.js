@@ -24,7 +24,7 @@ export function Relationship(relationship) {
     return relationship.text;
   }
 
-  const label = [];
+  const label = []; // WARNING! This only covers the FIRST relationship! You need to figure out how to handle them all!!!
   for (let i = 0; i < relationship[0].coding.length; i++) {
     let currentCode;
     if (get(relationship[0], `coding[${i}].display`) !== undefined) { // Display check first.
