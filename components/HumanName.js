@@ -3,12 +3,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  find, get, has, replace,
+  find, get, replace,
 } from 'lodash';
-import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 import { withStyles } from '@material-ui/core/styles';
 import DataRow from './shared/DataRow';
+import Period from './Period';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import InfoDropdown from './shared/InfoDropdown';
@@ -54,6 +54,16 @@ const styles = theme => ({
 });
 
 class HumanName extends PureComponent {
+  static preferredName(humanName) {
+    if (humanName === undefined) {
+      return '';
+    }
+    const nameUse = Array.isArray(humanName)
+      ? find(humanName, name => name.use === 'usual') || find(humanName, name => name.use === 'official' || humanName[0])
+      : humanName;
+    return nameUse.text ? nameUse.text : `${nameUse.given.join(' ')} ${nameUse.family}`;
+  }
+
   static nameConcatenator(nameRecord) {
     return (`${replace(get(nameRecord, 'prefix', []), /,/g, ' ')} ${
       replace(get(nameRecord, 'given', []), /,/g, ' ')} ${
@@ -63,8 +73,7 @@ class HumanName extends PureComponent {
 
   constructor(props) {
     super(props);
-    const patientUse = find(get(this.props, 'humanName'), name => name.use === 'usual') || find(get(this.props, 'humanName'), name => name.use === 'official');
-    this.patientName = patientUse.text || `${patientUse.given.join(' ')} ${patientUse.family}`;
+    this.headerName = HumanName.preferredName(get(this.props, 'humanName'));
     this.fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
   }
 
@@ -75,10 +84,7 @@ class HumanName extends PureComponent {
         key={`humanName${uuidv4()}`}
         label={get(nameRecord, 'use', 'N/A')}
         value={fullNames[index]}
-        details={`${moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')
-        } - ${has(nameRecord, 'period.end')}`
-          ? moment(get(nameRecord, 'period.end')).format('MM/DD/YYYY')
-          : 'Present'}
+        details={Period.periodLabel(get(nameRecord, 'period'))}
       />
 
     ));
@@ -94,13 +100,12 @@ class HumanName extends PureComponent {
   }
 
   render() {
-    const patientName = find(get(this.props, 'humanName'), name => name.use === 'usual') || find(get(this.props, 'humanName'), name => name.use === 'official');
     const { classes } = this.props;
     return (
       <div className={classes.humanName}>
         <div className={classes.humanNamePanel}>
           <div className={classes.humanNameLabel}>
-            {patientName && patientName.text}
+            {this.headerName}
           </div>
           <InfoDropdown>
             {this.menuGenerator(get(this.props, 'humanName'), classes)}

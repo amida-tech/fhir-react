@@ -3,8 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { storiesOf } from '@storybook/react';
 import { get } from 'lodash';
 import { select, object, withKnobs } from '@storybook/addon-knobs';
-import DataRow from '../components/shared/DataRow';
-import InfoExpansion from '../components/shared/InfoExpansion';
+import Contacts from '../components/Contacts';
 import { patient as Marion, fhirDescriptions } from '../data/Marion';
 import { patientExamples } from '../data/examples';
 import { Patient, HumanName, Address } from '../components';
@@ -86,29 +85,9 @@ storiesOf('Patient - Eve Everywoman', module)
     return (
       <div style={{ backgroundColor: '#fff', height: '600px' }}>
         <MuiThemeProvider theme={theme}>
-          <InfoExpansion
-            title="Rico Suave"
-            details="05/12/1982 - Present"
-          >
-            <DataRow
-              label="Relationship"
-              value="Brother"
-            />
-            <DataRow
-              label="Relationship"
-              value="Dancer"
-              details="11/20/1977 - 12/14/2017"
-            />
-          </InfoExpansion>
-          <InfoExpansion
-            title="Seymour Butts"
-            details="05/12/1982 - 09/12/2009"
-          >
-            <DataRow
-              label="Relationship"
-              value="Father"
-            />
-          </InfoExpansion>
+          <Contacts
+            contact={object('Patient', patientExamples.PatientPieter.contact)}
+          />
         </MuiThemeProvider>
       </div>
     );

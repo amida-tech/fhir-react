@@ -50,14 +50,18 @@ const DataRow = ({ label, value, details }) => ({
         <span className={classes.DataRowLabel}>
           {label}
         </span>
-        <span className={classes.DataRowDetails} />
         <div className={classes.DataRowGroup}>
           <span className={classes.DataRowValue}>
             {value}
           </span>
-          <span className={classes.DataRowDetails}>
-            {details}
-          </span>
+          {typeof details === 'object'
+            ? details
+            : (
+              <span className={classes.DataRowDetails}>
+                {details}
+              </span>
+            )
+          }
         </div>
       </div>
     );

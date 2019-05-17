@@ -6,20 +6,20 @@ import PropTypes from 'prop-types';
 import {
   withStyles, withTheme,
 } from '@material-ui/core/styles';
+import uuidv4 from 'uuid/v4';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
-import { get } from 'lodash';
 
 const defaultStyles = theme => ({
   infoExpansionCard: {
-    backgroundColor: get(theme, 'palette.tertiary.main', '#F0F4F8'),
+    backgroundColor: theme.palette.tertiary.light,
     display: 'flex',
     justifyContent: 'space-between',
     padding: '1em',
     borderRadius: '5px',
-    color: get(theme, 'palette.middark', '#486581'),
+    color: theme.palette.primary.light,
     margin: '1em',
   },
   infoExpansionCardTitle: {
@@ -32,7 +32,7 @@ const defaultStyles = theme => ({
     fontSize: '.9rem',
   },
   infoExpansionButton: {
-    color: get(theme, 'palette.middark', '#486581'),
+    color: theme.palette.primary.light,
   },
 });
 

@@ -15,8 +15,6 @@ export default ({
       main: '#D9E2EC',
       dark: '#BCCCDC',
     },
-    dark: '#243B53', // Need to figure out the order of this stuff. For now, going to leave it here.
-    middark: '#486581', // Ditto.
   },
   typography: {
     useNextVariants: true,

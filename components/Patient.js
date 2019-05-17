@@ -67,7 +67,7 @@ class Patient extends React.PureComponent {
           </div>
           <HumanName
             humanName={get(this.props, 'patient.name')}
-            nameDescriptioon={get(this.props, 'fhirDescriptions.nameDescription')}
+            nameDescription={get(this.props, 'fhirDescriptions.nameDescription')}
           />
         </div>
         <CenteredTabs className={tabsContainer} />
