@@ -22,7 +22,7 @@ const defaultStyles = theme => ({
     borderRadius: '3px',
     display: 'grid',
     gridTemplateColumns: '100%',
-    gridTemplateRows: '30% 70%',
+    gridTemplateRows: '30% 48px 70%',
     alignSelf: 'middle',
     boxShadow: '2px 3px 10px 0px rgba(188, 204, 220)',
   },
@@ -49,13 +49,21 @@ const defaultStyles = theme => ({
     gridRow: 2,
     zIndex: 0,
   },
+  contentContainer: {
+    gridRow: 3,
+  },
 });
 
 class Patient extends React.PureComponent {
   render() {
     const { classes } = this.props;
     const {
-      card, header, avatarContainer, tabsContainer, activeLabel,
+      card,
+      header,
+      avatarContainer,
+      tabsContainer,
+      activeLabel,
+      contentContainer,
     } = classes;
 
     return (
@@ -73,6 +81,7 @@ class Patient extends React.PureComponent {
           />
         </div>
         <CenteredTabs className={tabsContainer} />
+        <div className={contentContainer}></div>
       </div>
     );
   }
