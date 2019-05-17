@@ -13,7 +13,7 @@ import DataRow from './shared/DataRow';
 // import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import InfoDropdown from './shared/InfoDropdown';
 
-const styles = {
+const styles = theme => ({
   humanName: {
     display: 'flex',
     flexDirection: 'row',
@@ -31,28 +31,27 @@ const styles = {
     fontWeight: 400,
     color: 'rgb(36, 59, 83)',
     paddingLeft: '1rem',
-
   },
   humanNameMenuHeader: {
     fontFamily: 'Helvetica',
     fontSize: '1.3em',
-    color: '#243B53',
+    color: theme.palette.primary.dark,
     marginLeft: '5%',
     marginBottom: '3%',
   },
   humanNameTableLabel: {
     fontFamily: 'Source Sans Pro',
     fontSize: '1rem',
-    color: '#486581',
+    color: theme.palette.primary.light,
     marginLeft: '15px',
     minWidth: '80px',
     textTransform: 'capitalize',
   },
   iconInfo: {
-    color: '#D3D3D3', // Be nice if we could use some preprocessor to render variables real soon.
+    color: '#D3D3D3',
     alignSelf: 'end',
   },
-};
+});
 
 class HumanName extends PureComponent {
   static nameConcatenator(nameRecord) {
@@ -70,16 +69,18 @@ class HumanName extends PureComponent {
   }
 
   menuGenerator(nameRecords, classes) {
+    const fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
     const menuList = nameRecords.map((nameRecord, index) => (
       <DataRow
         key={`humanName${uuidv4()}`}
         label={get(nameRecord, 'use', 'N/A')}
-        value={this.fullNames[index]}
+        value={fullNames[index]}
         details={`${moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')
         } - ${has(nameRecord, 'period.end')}`
           ? moment(get(nameRecord, 'period.end')).format('MM/DD/YYYY')
           : 'Present'}
       />
+
     ));
     menuList.unshift(
       <div
@@ -93,18 +94,19 @@ class HumanName extends PureComponent {
   }
 
   render() {
+    const patientName = find(get(this.props, 'humanName'), name => name.use === 'usual') || find(get(this.props, 'humanName'), name => name.use === 'official');
     const { classes } = this.props;
     return (
       <div className={classes.humanName}>
         <div className={classes.humanNamePanel}>
           <div className={classes.humanNameLabel}>
-            {this.patientName}
+            {patientName && patientName.text}
           </div>
           <InfoDropdown>
             {this.menuGenerator(get(this.props, 'humanName'), classes)}
           </InfoDropdown>
         </div>
-        {/* <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameInfo')}/> */}
+        {/* <FontAwesomeIcon icon={faInfoCircle} className={this.props.classes.iconInfo + ' fas fa-info-circle fa icon-info'} title={get(this.props, 'nameDescription')}/> */}
       </div>
     );
   }
@@ -113,7 +115,7 @@ class HumanName extends PureComponent {
 HumanName.propTypes = {
   classes: PropTypes.object,
   // humanName: PropTypes.array,
-  // nameInfo: PropTypes.string,
+  // nameDescription: PropTypes.string,
 };
 
 export default withStyles(styles)(HumanName);

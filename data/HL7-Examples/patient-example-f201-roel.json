@@ -1,6 +1,3 @@
-// 20190508145658
-// http://hl7.org/fhir/patient-example-f201-roel.json
-
 {
   "resourceType": "Patient",
   "id": "f201",
