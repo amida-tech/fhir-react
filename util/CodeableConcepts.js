@@ -1,8 +1,9 @@
+/* eslint-disable no-plusplus */
 
 // Codeable Concepts, for now, is a utility library that understand the
 // individual CCs and returns either React components, objects or strings
 // for their values.
-import { has } from 'lodash';
+import { compact, get } from 'lodash';
 
 const v20131 = { // English only! There's a German version too!
   C: 'Emergency Contact',
@@ -19,37 +20,36 @@ export function Relationship(relationship) {
     return '';
   }
 
-  if (relationship.text !== undefined) {
+  if (relationship[0].text !== undefined) {
     return relationship.text;
   }
 
   const label = [];
-  for (let i = 0; i < relationship.length; i + 1) {
-    console.log(relationship[i].coding[0]);
+  for (let i = 0; i < relationship[0].coding.length; i++) {
     let currentCode;
-    if (has(relationship[i], 'coding[0].display')) { // Display check first.
-      currentCode += `${relationship[i].coding[0].display}`;
+    if (get(relationship[0], `coding[${i}].display`) !== undefined) { // Display check first.
+      currentCode = `${relationship[0].coding[i].display}`;
     } else { // Display failed, check systems.
-      switch (relationship[i].coding[0].system) {
+      switch (relationship[0].coding[i].system) {
         case 'http://terminology.hl7.org/CodeSystem/v2-0131':
-          currentCode = `${v20131[relationship[i].coding[0].code]}`;
+          currentCode = `${v20131[relationship[0].coding[i].code]}`;
           break;
         case 'http://snomed.info/sct':
-          currentCode = relationship[i].coding[0].code;
+          currentCode = relationship[0].coding[i].code;
           break;
         case 'http://terminology.hl7.org/CodeSystem/v3-RoleCode':
-          currentCode = relationship[i].coding[0].code.charAt(0) + relationship[i].coding[0].code.slice(1).toLowerCase();
+          currentCode = relationship[0].coding[i].code.charAt(0) + relationship[0].coding[i].code.slice(1).toLowerCase();
           break;
         default:
-          currentCode = relationship[i].coding[0].code;
+          currentCode = relationship[0].coding[i].code;
       }
     }
-    if (relationship[i].coding[0].code.userSelected) {
+    if (relationship[0].coding[i].code.userSelected) {
       return currentCode;
     }
     label.push(currentCode);
   }
-  return label.join(', ');
+  return compact(label).join(', ');
 }
 
 export function maritalStatus(codeableConcept) {

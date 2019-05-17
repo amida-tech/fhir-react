@@ -80,7 +80,6 @@ storiesOf('Default Address', module)
 
 storiesOf('Patient - Eve Everywoman', module)
   .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
-  .addDecorator(withKnobs)
   .add('Contacts', () => {
     const theme = createMuiTheme(DefaultTheme);
     return (
