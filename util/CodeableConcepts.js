@@ -1,5 +1,3 @@
-/* eslint-disable no-plusplus */
-
 // Codeable Concepts, for now, is a utility library that understand the
 // individual CCs and returns either React components, objects or strings
 // for their values.
@@ -25,7 +23,7 @@ export function Relationship(relationship) {
   }
 
   const label = []; // WARNING! This only covers the FIRST relationship! You need to figure out how to handle them all!!!
-  for (let i = 0; i < relationship[0].coding.length; i++) {
+  for (let i = 0; i < relationship[0].coding.length; i += 1) {
     let currentCode;
     if (get(relationship[0], `coding[${i}].display`) !== undefined) { // Display check first.
       currentCode = `${relationship[0].coding[i].display}`;
