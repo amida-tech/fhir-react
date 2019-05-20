@@ -1,6 +1,3 @@
-// 20190508145306
-// https://www.hl7.org/fhir/patient-example-xcda.json
-
 {
   "resourceType": "Patient",
   "id": "xcda",

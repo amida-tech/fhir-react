@@ -2,28 +2,49 @@ import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { storiesOf } from '@storybook/react';
 import { get } from 'lodash';
+import { select, object, withKnobs } from '@storybook/addon-knobs';
 import { patient as Marion, fhirDescriptions } from '../data/Marion';
-import { Patient, HumanName, Address, RelationshipFilter } from '../components';
+import {
+ Patient, HumanName, Address, RelationshipFilter 
+} from '../components';
+import { patientExamples } from '../data/examples';
+
 import storybookTheme from '../themes/xd';
 import DefaultTheme from '../themes/default';
 
 storiesOf('Patient', module)
+  .addDecorator(withKnobs)
   .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
   .add('Default Theme', () => {
     const theme = createMuiTheme(DefaultTheme);
-
     return (
       <div>
-        <MuiThemeProvider theme={theme}>   
+        <MuiThemeProvider theme={theme}>
           <Patient
-            patient={Marion}
+            patient={object('Patient', Marion)}
+            info={object('fhirDescriptions', fhirDescriptions)}
+          />
+        </MuiThemeProvider>
+      </div>
+    );
+  })
+  .add('With Patient Dropdown', () => {
+    const theme = createMuiTheme(DefaultTheme);
+    const patientOptions = {
+      Marion,
+      ...patientExamples,
+    };
+    return (
+      <div>
+        <MuiThemeProvider theme={theme}>
+          <Patient
+            patient={select('Patient', patientOptions, Marion, 'Patient')}
             fhirDescriptions={fhirDescriptions}
           />
         </MuiThemeProvider>
       </div>
     );
   });
-
 
 storiesOf('Default HumanName', module)
   .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
@@ -34,7 +55,7 @@ storiesOf('Default HumanName', module)
       <div>
         <MuiThemeProvider theme={theme}>
           <HumanName
-            humanName={get(Marion, 'name')}
+            humanName={object('name', get(Marion, 'name'))}
           />
         </MuiThemeProvider>
       </div>
@@ -50,7 +71,9 @@ storiesOf('Default Address', module)
       <div>
         <MuiThemeProvider theme={theme}>
           <Address
-            address={get(Marion, 'address')}
+            address={object('address', get(Marion, 'address'))}
+            patient={object('Patient', Marion)}
+            info={object('fhirDescriptions', fhirDescriptions)}
           />
         </MuiThemeProvider>
       </div>
@@ -61,11 +84,12 @@ storiesOf('Default Relationship Filter', module)
   .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
   .add('Default Theme', () => {
     const theme = createMuiTheme(DefaultTheme);
-
     return (
       <div>
         <MuiThemeProvider theme={theme}>
-          <RelationshipFilter />
+          <RelationshipFilter
+            contact={object('contact', get(Marion, 'contact'))}
+          />
         </MuiThemeProvider>
       </div>
     );

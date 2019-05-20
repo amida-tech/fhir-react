@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
- find, get, has, isNull 
+  find, get, has, isNil,
 } from 'lodash';
 import { compose } from 'recompose';
 import { withStyles, withTheme } from '@material-ui/core/styles';
@@ -90,31 +90,40 @@ const BootstrapInput = withStyles(theme => ({
       '"Segoe UI Symbol"',
     ].join(','),
     '&:focus': {
-      borderRadius: 4,
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+        color: '#F0F4F8',
     },
   },
 }))(InputBase);
 
-class RelationshipFilter extends PureComponent {
-  constructor() {
-    super();
-    const contacts = get(this.props, 'contact') || [];
+const getRelationshipsBySystem = (contacts, system) => contacts
+  .filter(contact => {
+    if (has(contact, 'relationship[0].coding')) {
+      return !isNil(find(contact.relationship[0].coding, code => has(code, 'system') && code.system === system));
+    }
+    return false;
+  })
+  .map(contact => {
+    const code = find(contact.relationship[0].coding, currCode => has(currCode, 'system') && currCode.system === system);
+    return has(code, 'display') ? code.display : code.code;
+  });
 
-    const relationships = contacts.map(contact => (has(contact, 'relationship') ? contact.relationship[0] : {})).filter(relationship => {
-      if (has(relationship, 'coding')) {
-        return !isNull(find(relationship.coding, code => has(code, 'sytstem') && code.system === 'http://hl7.org/fhir/ValueSet/patient-contactrelationship'));
-      }
-      return false;
-    });
-    console.log(relationships);
+class RelationshipFilter extends PureComponent {
+
+  state= {
+    relationship: '',
+    contactRelationships: [],
+    otherRelationships: [],
   }
 
-  state = {
-    relationship: 'Select a Relationship',
+  componentDidMount() {
+    const contacts = get(this.props, 'contact') || [];
+    const contactRelationships = getRelationshipsBySystem(contacts, 'http://hl7.org/fhir/ValueSet/patient-contactrelationship');
+    const otherRelationships = getRelationshipsBySystem(contacts, 'http://terminology.hl7.org/CodeSystem/v3-RoleCode');
 
-  };
+    this.setState({ contactRelationships });
+
+    this.setState({ otherRelationships });
+  }
 
   handleChange = event => {
     this.setState({ relationship: event.target.value });
@@ -130,12 +139,13 @@ class RelationshipFilter extends PureComponent {
 
           <Select
             displayEmpty
-            value={this.state.relationship}
+            value={get(this.state, 'relationship')}
             onChange={this.handleChange}
             input={<BootstrapInput />}
             renderValue={selected => {
-              if (selected.length === 0) {
-                return <em>Emergency Contact</em>;
+              if (selected.length === 0
+                && has(this, 'state.contactRelationships[0]')) {
+                return get(this, 'state.contactRelationships[0]');
               }
               return selected;
             }}
@@ -148,7 +158,7 @@ class RelationshipFilter extends PureComponent {
             }}
           >
 
-            {options.map(name => (
+            {get(this, 'state.contactRelationships').map(name => (
               <MenuItem key={name} value={name} style={getStyles(name, this)}>
                 {name}
               </MenuItem>

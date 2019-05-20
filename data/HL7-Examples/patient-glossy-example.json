@@ -1,6 +1,3 @@
-// 20190508145749
-// http://hl7.org/fhir/patient-glossy-example.json
-
 {
   "resourceType": "Patient",
   "id": "glossy",

@@ -1,6 +1,3 @@
-// 20190508145606
-// http://hl7.org/fhir/patient-example-f001-pieter.json
-
 {
   "resourceType": "Patient",
   "id": "f001",

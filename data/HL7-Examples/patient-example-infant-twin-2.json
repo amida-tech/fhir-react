@@ -1,6 +1,3 @@
-// 20190508150558
-// https://www.hl7.org/fhir/patient-example-infant-twin-2.json
-
 {
   "resourceType": "Patient",
   "id": "infant-twin-2",

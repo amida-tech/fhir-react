@@ -1,6 +1,3 @@
-// 20190508145856
-// https://www.hl7.org/fhir/patient-genetics-example1.json
-
 {
   "resourceType": "Patient",
   "id": "genetics-example1",
