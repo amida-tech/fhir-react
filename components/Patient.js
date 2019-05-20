@@ -12,7 +12,8 @@ import { get } from 'lodash';
 import avatar from '../assets/avatar.png';
 import CenteredTabs from './CenteredTabs';
 import HumanName from './HumanName';
-
+import Overview from './Overview';
+import Contacts from './Contacts';
 
 const defaultStyles = theme => ({
   card: {
@@ -56,6 +57,22 @@ class Patient extends React.PureComponent {
     const {
       card, header, avatarContainer, tabsContainer, activeLabel,
     } = classes;
+
+    const tabs = [
+      {
+        component: (<Overview />),
+        label: 'Overview',
+      },
+      {
+        component: (<Contacts
+          contact={get(this.props, 'patient.contact')}
+        />),
+        label: 'Contacts',
+      },
+    ];
+
+    const tabIndx = 1;
+
     return (
       <div className={card}>
         <div className={header}>
@@ -70,7 +87,7 @@ class Patient extends React.PureComponent {
             nameDescription={get(this.props, 'fhirDescriptions.nameDescription')}
           />
         </div>
-        <CenteredTabs className={tabsContainer} contact={get(this.props, 'patient.contact')} />
+        <CenteredTabs className={tabsContainer} tabs={tabs} tabIndx={tabIndx} />
       </div>
     );
   }

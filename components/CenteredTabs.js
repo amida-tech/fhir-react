@@ -1,12 +1,10 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { get } from 'lodash';
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import { compose } from 'recompose';
 import PropTypes from 'prop-types';
-import Contacts from './Contacts';
 
 
 const defaultStyles = theme => ({
@@ -20,7 +18,7 @@ class CenteredTabs extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      value: 1,
+      value: props.tabIndx,
     };
   }
 
@@ -29,11 +27,10 @@ class CenteredTabs extends React.PureComponent {
   };
 
 
-  // This is not reusable. Steven, please take a harder look at this.
   render() {
     const { state, handleChange } = this;
     const { value } = state;
-    const { contact, classes } = this.props;
+    const { tabs, classes } = this.props;
 
     return (
       <div className={classes.CenteredTabs}>
@@ -45,22 +42,18 @@ class CenteredTabs extends React.PureComponent {
           variant="fullWidth"
           centered
         >
-          <Tab label="Overview" />
-          <Tab label="Contacts" />
+          { tabs.map(tab => (<Tab label={tab.label} />)) }
         </Tabs>
-        {value === 1 && (
-          <Contacts
-            contact={contact}
-          />
-        )}
+        {tabs.length && tabs[get(this, 'state.tabsIndx')]}
       </div>
     );
   }
 }
 
 CenteredTabs.propTypes = {
-  contact: PropTypes.array,
   classes: PropTypes.object,
+  tabIndx: PropTypes.number,
+  tabs: PropTypes.array,
 };
 
 export default compose(
