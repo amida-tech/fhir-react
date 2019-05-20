@@ -1,8 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {
- find, get, has, isNull 
-} from 'lodash';
 import { compose } from 'recompose';
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -54,11 +51,6 @@ const styles = theme => ({
   bootstrapFormLabel: {
     fontSize: 18,
   },
-  selectMenu: {
-    position: 'absolute',
-    top: '-30px',
-    backgroundColor: '#ae0000',
-  },
 });
 
 const BootstrapInput = withStyles(theme => ({
@@ -77,18 +69,7 @@ const BootstrapInput = withStyles(theme => ({
     padding: '10px 26px 10px 12px',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
+    fontFamily: 'Source Sans Pro',
     '&:focus': {
       borderRadius: 4,
       borderColor: '#80bdff',
@@ -98,23 +79,10 @@ const BootstrapInput = withStyles(theme => ({
 }))(InputBase);
 
 class RelationshipFilter extends PureComponent {
-  constructor() {
-    super();
-    const contacts = get(this.props, 'contact') || [];
+    state = {
+      relationship: 'Select a Relationship',
+    };
 
-    const relationships = contacts.map(contact => (has(contact, 'relationship') ? contact.relationship[0] : {})).filter(relationship => {
-      if (has(relationship, 'coding')) {
-        return !isNull(find(relationship.coding, code => has(code, 'sytstem') && code.system === 'http://hl7.org/fhir/ValueSet/patient-contactrelationship'));
-      }
-      return false;
-    });
-    console.log(relationships);
-  }
-
-  state = {
-    relationship: 'Select a Relationship',
-
-  };
 
   handleChange = event => {
     this.setState({ relationship: event.target.value });

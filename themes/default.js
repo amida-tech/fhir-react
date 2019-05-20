@@ -11,6 +11,9 @@ export default ({
       fontWeight: '500',
       fontSize: '14pt',
     },
+    display1: {
+      fontFamily: 'Helvetica'
+    },
     button: {
       fontFamily: 'Source Sans Pro',
       textTransform: 'capitalize',
