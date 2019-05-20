@@ -18,6 +18,7 @@ const defaultStyles = {
 class Contacts extends PureComponent {
   render() {
     const { classes, contact } = this.props;
+    console.log(contact);
     return (
       <div className={classes.Contacts}>
         {contact && contact.map(entry => (

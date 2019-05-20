@@ -1,7 +1,6 @@
 import React from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { get } from 'lodash';
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import { compose } from 'recompose';
 import PropTypes from 'prop-types';
@@ -17,20 +16,12 @@ const defaultStyles = theme => ({
 class CenteredTabs extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      value: props.tabIndx,
-    };
+    this.handleChange = props.handleChange;
   }
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-
   render() {
-    const { state, handleChange } = this;
-    const { value } = state;
-    const { tabs, classes } = this.props;
+    const { handleChange } = this;
+    const { value, tabs, classes } = this.props;
 
     return (
       <div className={classes.CenteredTabs}>
@@ -44,7 +35,6 @@ class CenteredTabs extends React.PureComponent {
         >
           { tabs.map(tab => (<Tab label={tab.label} />)) }
         </Tabs>
-        {tabs.length && tabs[get(this, 'state.tabsIndx')]}
       </div>
     );
   }
@@ -52,8 +42,9 @@ class CenteredTabs extends React.PureComponent {
 
 CenteredTabs.propTypes = {
   classes: PropTypes.object,
-  tabIndx: PropTypes.number,
+  value: PropTypes.number,
   tabs: PropTypes.array,
+  handleChange: PropTypes.func,
 };
 
 export default compose(

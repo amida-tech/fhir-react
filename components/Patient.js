@@ -52,26 +52,40 @@ const defaultStyles = theme => ({
 });
 
 class Patient extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 1,
+    };
+  }
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  }
+
   render() {
     const { classes } = this.props;
+    const { value } = this.state;
     const {
       card, header, avatarContainer, tabsContainer, activeLabel,
     } = classes;
-
     const tabs = [
       {
         component: (<Overview />),
         label: 'Overview',
       },
       {
-        component: (<Contacts
-          contact={get(this.props, 'patient.contact')}
-        />),
+        component: (
+          <div>
+            <Contacts
+              contact={get(this.props, 'patient.contact')}
+            />
+            ????
+          </div>
+        ),
         label: 'Contacts',
       },
     ];
-
-    const tabIndx = 1;
 
     return (
       <div className={card}>
@@ -87,7 +101,8 @@ class Patient extends React.PureComponent {
             nameDescription={get(this.props, 'fhirDescriptions.nameDescription')}
           />
         </div>
-        <CenteredTabs className={tabsContainer} tabs={tabs} tabIndx={tabIndx} />
+        <CenteredTabs className={tabsContainer} tabs={tabs} value={value} handleChange={this.handleChange} />
+        {tabs.length && tabs[get(this, 'state.value')].component}
       </div>
     );
   }
