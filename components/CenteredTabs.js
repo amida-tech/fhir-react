@@ -1,15 +1,37 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import uuidv4 from 'uuid/v4';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import { compose } from 'recompose';
-import PropTypes from 'prop-types';
 
 
-const defaultStyles = theme => ({
+const styles = theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
+  },
+  tabsRoot: {
+    borderBottomWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderBottomColor: theme.palette.tertiary.main,
+  },
+  tabsIndicator: {
+    backgroundColor: theme.palette.secondary.main,
+  },
+  tabRoot: {
+    color: theme.palette.secondary.main,
+    '&:hover': {
+      color: theme.palette.primary.dark,
+    },
+    opacity: 1,
+  },
+  tabSelected: {
+    color: theme.palette.primary.dark,
+  },
+  tabRippleChild: {
+    backgroundColor: theme.palette.tertiary.light,
   },
 });
 
@@ -28,17 +50,33 @@ class CenteredTabs extends React.PureComponent {
         <Tabs
           value={value}
           onChange={handleChange}
-          textColor="primary"
-          indicatorColor="primary"
           variant="fullWidth"
           centered
+          classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }}
         >
-          { tabs.map(tab => (<Tab label={tab.label} />)) }
+          {tabs.map(tab => (
+            <Tab
+              key={`tab${uuidv4()}`}
+              label={tab.label}
+              classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
+              TouchRippleProps={{ classes: { child: classes.tabRippleChild } }}
+            />
+          ))}
         </Tabs>
       </div>
     );
   }
 }
+CenteredTabs.propTypes = {
+  classes: PropTypes.shape({
+    root: PropTypes.object.isRequired,
+    tabsRoot: PropTypes.object.isRequired,
+    tabsIndicator: PropTypes.object.isRequired,
+    tabRoot: PropTypes.object.isRequired,
+    tabSelected: PropTypes.object.isRequired,
+    tabRippleChild: PropTypes.object.isRequired,
+  }).isRequired,
+};
 
 CenteredTabs.propTypes = {
   classes: PropTypes.object,
@@ -49,5 +87,5 @@ CenteredTabs.propTypes = {
 
 export default compose(
   withTheme(),
-  withStyles(defaultStyles),
+  withStyles(styles),
 )(CenteredTabs);

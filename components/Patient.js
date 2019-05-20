@@ -13,7 +13,7 @@ import avatar from '../assets/avatar.png';
 import CenteredTabs from './CenteredTabs';
 import HumanName from './HumanName';
 import Overview from './Overview';
-import Contacts from './Contacts';
+import Contact from './Contact';
 
 const defaultStyles = theme => ({
   card: {
@@ -22,7 +22,7 @@ const defaultStyles = theme => ({
     borderRadius: '3px',
     display: 'grid',
     gridTemplateColumns: '100%',
-    gridTemplateRows: '30% 70%',
+    gridTemplateRows: '30% 48px 70%',
     alignSelf: 'middle',
     boxShadow: '2px 3px 10px 0px rgba(188, 204, 220)',
   },
@@ -49,6 +49,9 @@ const defaultStyles = theme => ({
     gridRow: 2,
     zIndex: 0,
   },
+  contentContainer: {
+    gridRow: 3,
+  },
 });
 
 class Patient extends React.PureComponent {
@@ -67,21 +70,25 @@ class Patient extends React.PureComponent {
     const { classes } = this.props;
     const { value } = this.state;
     const {
-      card, header, avatarContainer, tabsContainer, activeLabel,
+      card,
+      header,
+      avatarContainer,
+      tabsContainer,
+      activeLabel,
+      contentContainer,
     } = classes;
     const tabs = [
       {
-        component: (<Overview />),
+        component: (
+          <Overview />
+        ),
         label: 'Overview',
       },
       {
         component: (
-          <div>
-            <Contacts
-              contact={get(this.props, 'patient.contact')}
-            />
-            ????
-          </div>
+          <Contact
+            contact={get(this.props, 'patient.contact')}
+          />
         ),
         label: 'Contacts',
       },
@@ -102,7 +109,9 @@ class Patient extends React.PureComponent {
           />
         </div>
         <CenteredTabs className={tabsContainer} tabs={tabs} value={value} handleChange={this.handleChange} />
-        {tabs.length && tabs[get(this, 'state.value')].component}
+        <div className={contentContainer}>
+          {tabs.length && tabs[get(this, 'state.value')].component}
+        </div>
       </div>
     );
   }
