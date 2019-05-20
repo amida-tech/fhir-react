@@ -18,13 +18,19 @@ export default ({
   },
   typography: {
     useNextVariants: true,
+    body1: {
+      fontFamily: 'Helvetica',
+    },
+    body2: {
+      fontFamily: 'Source Sans Pro',
+    },
     subtitle1: {
       fontFamily: 'Source Sans Pro',
       fontWeight: '500',
       fontSize: '14pt',
     },
     display1: {
-      fontFamily: 'Helvetica'
+      fontFamily: 'Helvetica',
     },
     button: {
       fontFamily: 'Source Sans Pro',
