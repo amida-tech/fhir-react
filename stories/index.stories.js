@@ -3,7 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { storiesOf } from '@storybook/react';
 import { get } from 'lodash';
 import { select, object, withKnobs } from '@storybook/addon-knobs';
-import Contacts from '../components/Contacts';
+import Contact from '../components/Contact';
 import { patient as Marion, fhirDescriptions } from '../data/Marion';
 import { patientExamples } from '../data/examples';
 import { Patient, HumanName, Address } from '../components';
@@ -85,7 +85,7 @@ storiesOf('Patient - Eve Everywoman', module)
     return (
       <div style={{ backgroundColor: '#fff', height: '600px' }}>
         <MuiThemeProvider theme={theme}>
-          <Contacts
+          <Contact
             contact={patientExamples.PatientPieter.contact}
           />
         </MuiThemeProvider>

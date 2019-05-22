@@ -23,6 +23,10 @@ export default ({
       fontWeight: '500',
       fontSize: '14pt',
     },
+    subtitle2: {
+      fontFamily: 'Source Sans Pro',
+      fontSize: '11pt',
+    },
     button: {
       fontFamily: 'Source Sans Pro',
       textTransform: 'capitalize',

@@ -12,6 +12,7 @@ import Period from './Period';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import InfoDropdown from './shared/InfoDropdown';
+import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
   humanName: {
@@ -76,9 +77,21 @@ class HumanName extends PureComponent {
     const menuList = nameRecords.map((nameRecord, index) => (
       <DataRow
         key={`humanName${uuidv4()}`}
-        label={get(nameRecord, 'use', 'N/A')}
-        value={fullNames[index]}
-        details={Period.periodLabel(get(nameRecord, 'period'))}
+        label={(
+          <Typography>
+            {get(nameRecord, 'use', 'N/A')}
+          </Typography>
+        )}
+        value={(
+          <Typography>
+            {fullNames[index]}
+          </Typography>
+        )}
+        details={(
+          <Typography>
+            {Period.periodLabel(get(nameRecord, 'period'))}
+          </Typography>
+        )}
       />
 
     ));
