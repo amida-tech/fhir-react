@@ -3,14 +3,18 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  find, get, has, replace,
+  find, get, replace,
 } from 'lodash';
-import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 import { withStyles } from '@material-ui/core/styles';
-import InfoDropdown from './InfoDropdown';
+import DataRow from './shared/DataRow';
+import Period from './Period';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import InfoDropdown from './shared/InfoDropdown';
+import { Typography } from '@material-ui/core';
 
-const styles = {
+const styles = theme => ({
   humanName: {
     display: 'flex',
     flexDirection: 'row',
@@ -28,49 +32,39 @@ const styles = {
     fontWeight: 400,
     color: 'rgb(36, 59, 83)',
     paddingLeft: '1rem',
-
   },
   humanNameMenuHeader: {
     fontFamily: 'Helvetica',
     fontSize: '1.3em',
-    color: '#243B53',
+    color: theme.palette.primary.dark,
     marginLeft: '5%',
     marginBottom: '3%',
-  },
-  humanNameField: {
-    display: 'flex',
-    flexDirection: 'row',
   },
   humanNameTableLabel: {
     fontFamily: 'Source Sans Pro',
     fontSize: '1rem',
-    color: '#486581',
+    color: theme.palette.primary.light,
     marginLeft: '15px',
     minWidth: '80px',
     textTransform: 'capitalize',
   },
-  humanNameDetails: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  humanNameTableName: {
-    fontFamily: 'Helvetica',
-    fontSize: '1em',
-    fontWeight: 'bold',
-    color: '#243B53',
-  },
-  humanNameTablePeriod: {
-    fontFamily: 'Source Sans Pro',
-    fontSize: '.9em',
-    color: '#829AB1',
-  },
   iconInfo: {
-    color: '#D3D3D3', // Be nice if we could use some preprocessor to render variables real soon.
+    color: '#D3D3D3',
     alignSelf: 'end',
   },
-};
+});
 
 class HumanName extends PureComponent {
+  static preferredName(humanName) {
+    if (humanName === undefined) {
+      return '';
+    }
+    const nameUse = Array.isArray(humanName)
+      ? find(humanName, name => name.use === 'usual') || find(humanName, name => name.use === 'official' || humanName[0])
+      : humanName;
+    return nameUse.text ? nameUse.text : `${nameUse.given.join(' ')} ${nameUse.family}`;
+  }
+
   static nameConcatenator(nameRecord) {
     return (`${replace(get(nameRecord, 'prefix', []), /,/g, ' ')} ${
       replace(get(nameRecord, 'given', []), /,/g, ' ')} ${
@@ -81,23 +75,25 @@ class HumanName extends PureComponent {
   menuGenerator(nameRecords, classes) {
     const fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
     const menuList = nameRecords.map((nameRecord, index) => (
-      <div key={`humanName${uuidv4()}`} className={classes.humanNameField}>
-        <div className={classes.humanNameTableLabel}>
-          {get(nameRecord, 'use', 'N/A')}
-        </div>
-        <div className={classes.humanNameDetails}>
-          <div className={classes.humanNameTableName}>
+      <DataRow
+        key={`humanName${uuidv4()}`}
+        label={(
+          <Typography>
+            {get(nameRecord, 'use', 'N/A')}
+          </Typography>
+        )}
+        value={(
+          <Typography>
             {fullNames[index]}
-          </div>
-          <div className={classes.humanNameTablePeriod}>
-            {moment(get(nameRecord, 'period.start')).format('MM/DD/YYYY')}
-            {' to '}
-            {has(nameRecord, 'period.end')
-              ? moment(get(nameRecord, 'period.end')).format('MM/DD/YYYY')
-              : 'Present'}
-          </div>
-        </div>
-      </div>
+          </Typography>
+        )}
+        details={(
+          <Typography>
+            {Period.periodLabel(get(nameRecord, 'period'))}
+          </Typography>
+        )}
+      />
+
     ));
     menuList.unshift(
       <div
@@ -111,13 +107,12 @@ class HumanName extends PureComponent {
   }
 
   render() {
-    const patientName = find(get(this.props, 'humanName'), name => name.use === 'usual') || find(get(this.props, 'humanName'), name => name.use === 'official');
     const { classes } = this.props;
     return (
       <div className={classes.humanName}>
         <div className={classes.humanNamePanel}>
           <div className={classes.humanNameLabel}>
-            {patientName && patientName.text}
+            {HumanName.preferredName(get(this.props, 'humanName'))}
           </div>
           <InfoDropdown>
             {this.menuGenerator(get(this.props, 'humanName'), classes)}

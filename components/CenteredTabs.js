@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import uuidv4 from 'uuid/v4';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { withStyles, withTheme } from '@material-ui/core/styles';
@@ -37,22 +38,15 @@ const styles = theme => ({
 class CenteredTabs extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      value: 0,
-    };
+    this.handleChange = props.handleChange;
   }
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
   render() {
-    const { state, handleChange } = this;
-    const { value } = state;
-    const { classes } = this.props;
+    const { handleChange } = this;
+    const { value, tabs, classes } = this.props;
 
     return (
-      <>
+      <div className={classes.CenteredTabs}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -60,18 +54,16 @@ class CenteredTabs extends React.PureComponent {
           centered
           classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }}
         >
-          <Tab
-            label="Overview"
-            classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            TouchRippleProps={{ classes: { child: classes.tabRippleChild } }}
-          />
-          <Tab
-            label="Contacts"
-            classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            TouchRippleProps={{ classes: { child: classes.tabRippleChild } }}
-          />
+          {tabs.map(tab => (
+            <Tab
+              key={`tab${uuidv4()}`}
+              label={tab.label}
+              classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
+              TouchRippleProps={{ classes: { child: classes.tabRippleChild } }}
+            />
+          ))}
         </Tabs>
-      </>
+      </div>
     );
   }
 }
@@ -86,6 +78,12 @@ CenteredTabs.propTypes = {
   }).isRequired,
 };
 
+CenteredTabs.propTypes = {
+  classes: PropTypes.object,
+  value: PropTypes.number,
+  tabs: PropTypes.array,
+  handleChange: PropTypes.func,
+};
 
 export default compose(
   withTheme(),

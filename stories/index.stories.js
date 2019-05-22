@@ -3,6 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { storiesOf } from '@storybook/react';
 import { get } from 'lodash';
 import { select, object, withKnobs } from '@storybook/addon-knobs';
+import Contact from '../components/Contact';
 import { patient as Marion, fhirDescriptions } from '../data/Marion';
 import { patientExamples } from '../data/examples';
 import { Patient, HumanName, Address } from '../components';
@@ -35,7 +36,7 @@ storiesOf('Patient', module)
       <div>
         <MuiThemeProvider theme={theme}>
           <Patient
-            patient={select('Patient', patientOptions, Marion, 'Patient')}
+            patient={select('Patient', patientOptions, patientExamples.PatientPieter, 'Patient')}
             fhirDescriptions={fhirDescriptions}
           />
         </MuiThemeProvider>
@@ -71,6 +72,21 @@ storiesOf('Default Address', module)
             address={object('address', get(Marion, 'address'))}
             patient={object('Patient', Marion)}
             info={object('fhirDescriptions', fhirDescriptions)}
+          />
+        </MuiThemeProvider>
+      </div>
+    );
+  });
+
+storiesOf('Patient - Eve Everywoman', module)
+  .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
+  .add('Contacts', () => {
+    const theme = createMuiTheme(DefaultTheme);
+    return (
+      <div style={{ backgroundColor: '#fff', height: '600px' }}>
+        <MuiThemeProvider theme={theme}>
+          <Contact
+            contact={patientExamples.PatientPieter.contact}
           />
         </MuiThemeProvider>
       </div>

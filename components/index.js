@@ -1,11 +1,13 @@
 import Patient from './Patient';
 import HumanName from './HumanName';
 import Address from './Address';
-import Contacts from './Contacts';
+import Contact from './Contact';
+import ContactPoint from './ContactPoint';
 
 export {
   Patient,
   HumanName,
   Address,
-  Contacts,
+  Contact,
+  ContactPoint,
 };

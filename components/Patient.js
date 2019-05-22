@@ -12,11 +12,11 @@ import { get } from 'lodash';
 import avatar from '../assets/avatar.png';
 import CenteredTabs from './CenteredTabs';
 import HumanName from './HumanName';
-
+import Overview from './Overview';
+import Contact from './Contact';
 
 const defaultStyles = theme => ({
   card: {
-    width: 315,
     height: 487,
     background: '#FFFFFF',
     borderRadius: '3px',
@@ -27,7 +27,7 @@ const defaultStyles = theme => ({
     boxShadow: '2px 3px 10px 0px rgba(188, 204, 220)',
   },
   header: {
-    width: 250,
+    width: '80%',
     height: 90,
     justifySelf: 'center',
     alignSelf: 'center',
@@ -55,8 +55,20 @@ const defaultStyles = theme => ({
 });
 
 class Patient extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 1,
+    };
+  }
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  }
+
   render() {
     const { classes } = this.props;
+    const { value } = this.state;
     const {
       card,
       header,
@@ -65,6 +77,22 @@ class Patient extends React.PureComponent {
       activeLabel,
       contentContainer,
     } = classes;
+    const tabs = [
+      {
+        component: (
+          <Overview />
+        ),
+        label: 'Overview',
+      },
+      {
+        component: (
+          <Contact
+            contact={get(this.props, 'patient.contact')}
+          />
+        ),
+        label: 'Contacts',
+      },
+    ];
 
     return (
       <div className={card}>
@@ -77,11 +105,13 @@ class Patient extends React.PureComponent {
           </div>
           <HumanName
             humanName={get(this.props, 'patient.name')}
-            nameDescriptioon={get(this.props, 'fhirDescriptions.nameDescription')}
+            nameDescription={get(this.props, 'fhirDescriptions.nameDescription')}
           />
         </div>
-        <CenteredTabs className={tabsContainer} />
-        <div className={contentContainer}></div>
+        <CenteredTabs className={tabsContainer} tabs={tabs} value={value} handleChange={this.handleChange} />
+        <div className={contentContainer}>
+          {tabs.length && tabs[get(this, 'state.value')].component}
+        </div>
       </div>
     );
   }
