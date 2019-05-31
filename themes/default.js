@@ -24,13 +24,26 @@ export default ({
     body2: {
       fontFamily: 'Source Sans Pro',
     },
+    h2: {
+      fontSize: '1.75rem',
+    },
+    h3: {
+      fontSize: '1.3rem',
+    },
+    h4: {
+      fontSize: '1rem',
+    },
+    h5: {
+      fontSize: '.875rem',
+    },
     subtitle1: {
       fontFamily: 'Source Sans Pro',
       fontWeight: '500',
-      fontSize: '14pt',
+      fontSize: '1rem',
     },
-    display1: {
-      fontFamily: 'Helvetica',
+    subtitle2: {
+      fontFamily: 'Source Sans Pro',
+      fontSize: '.75rem',
     },
     button: {
       fontFamily: 'Source Sans Pro',

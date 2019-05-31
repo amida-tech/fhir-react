@@ -26,7 +26,6 @@ const styles = {
   infoDropdownButton: {
     color: '#829AB1',
     marginRight: 0,
-    minWidth: 0,
     padding: 0,
   },
   infoDropdownMenuList: {
@@ -44,6 +43,7 @@ const styles = {
     padding: '25px 10px',
     '&:first-child': {
       borderBottom: '1px solid #ccc',
+      height: '10%',
     },
     '&:last-child': {
       borderWidth: 0,

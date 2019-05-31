@@ -19,6 +19,8 @@ module.exports = {
         "allowChildren": true
       }],
       "jsx-a11y/alt-text": "off",
+      "react/forbid-prop-types": "off",
+      "react/require-default-props": "off",
       "arrow-parens": [2, "as-needed"],
       // NOTE: I am allowing log here but really should not.
       // I don't want to focus on them right now though

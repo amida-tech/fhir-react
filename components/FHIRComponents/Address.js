@@ -18,7 +18,6 @@ class Address extends PureComponent {
   constructor(props) {
     super(props);
     // this.allAddresses = get(this.props, 'address').map(addressRecord => (get(addressRecord, 'prefix', '') + ' ' + get(addressRecord, 'given', '') + ' ' + get(addressRecord, 'family', '') + ' ' + get(addressRecord, 'suffix', '')).trim());
-    console.log(props);
 
     this.currentAddress = find(get(this.props, 'address'), addressRecord => addressRecord.use === 'home');
   }

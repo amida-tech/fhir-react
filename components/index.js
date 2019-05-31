@@ -1,13 +1,32 @@
-import Patient from './Patient';
-import HumanName from './HumanName';
-import Address from './Address';
-import Contacts from './Contacts';
-import RelationshipFilter from './RelationshipFilter';
-
-export {
+import {
   Patient,
   HumanName,
   Address,
+  ContactPoint,
+  Contact,
+} from './FHIRComponents';
+import Contacts from './FHIRComponents/Patient/Contacts';
+import PatientOverview from './FHIRComponents/Patient/Overview';
+
+import {
+  StyledSelect,
+  InfoDropDown,
+  InfoExpansion,
+  DataRow,
+  CenteredTabs,
+} from './utils';
+
+export {
+  Patient,
+  PatientOverview,
+  HumanName,
+  Address,
+  Contact,
   Contacts,
-  RelationshipFilter,
+  ContactPoint,
+  StyledSelect,
+  InfoDropDown,
+  InfoExpansion,
+  DataRow,
+  CenteredTabs,
 };

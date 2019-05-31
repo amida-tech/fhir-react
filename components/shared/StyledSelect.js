@@ -1,40 +1,22 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import {
+  find, get, has, isNil,
+} from 'lodash';
 import { compose } from 'recompose';
 import { withStyles, withTheme } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
 
-import DownArrow from '../assets/a-icon-arrow-down.png';
-import UpArrow from '../assets/a-icon-arrow-up.png';
+import DownArrow from '../../assets/a-icon-arrow-down.png';
+import UpArrow from '../../assets/a-icon-arrow-up.png';
 
-const options = [
-  'None',
-  'Atria',
-  'Callisto',
-  'Dione',
-  'Ganymede',
-  'Hangouts Call',
-  'Luna',
-  'Oberon',
-  'Phobos',
-  'Pyxis',
-  'Sedna',
-  'Titania',
-  'Triton',
-  'Umbriel',
-];
-
-const ITEM_HEIGHT = 48;
-
-function getStyles(relationship, that) {
+function getStyles(value, that) {
   return {
     fontWeight:
-      that.state.relationship.indexOf(relationship) === -1
+      that.state.value.indexOf(value) === -1
         ? that.props.theme.typography.fontWeightRegular
         : that.props.theme.typography.fontWeightMedium,
   };
@@ -51,9 +33,13 @@ const styles = theme => ({
   bootstrapFormLabel: {
     fontSize: 18,
   },
+  selectMenu: {
+    position: 'absolute',
+    backgroundColor: '#ae0000',
+  },
 });
 
-const BootstrapInput = withStyles(theme => ({
+const Input = withStyles(theme => ({
   root: {
     'label + &': {
       marginTop: theme.spacing.unit * 3,
@@ -68,42 +54,44 @@ const BootstrapInput = withStyles(theme => ({
     width: '10rem',
     padding: '10px 26px 10px 12px',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: theme.typography.display1.fontFamily,
-    '&:focus': {
-      borderRadius: 4,
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-    },
+    fontFamily: theme.typography.body1.fontFamily,
   },
 }))(InputBase);
 
-class RelationshipFilter extends PureComponent {
-    state = {
-      relationship: 'Select a Relationship',
-    };
-
+class StyledSelect extends PureComponent {
+  state = {
+    value: '',
+  }
 
   handleChange = event => {
-    this.setState({ relationship: event.target.value });
+    if (has(this.props, 'handleChange')) {
+      const { handleChange } = this.props;
+      handleChange(event);
+    }
+    this.setState({ value: event.target.value });
   };
 
+
   render() {
-    const { classes } = this.props;
+    const {
+      classes,
+      options,
+      placeHolder,
+    } = this.props;
+
+    const { value } = this.state;
 
     return (
       <form className={classes.root} autoComplete="off">
-
         <FormControl className={classes.margin}>
-
           <Select
             displayEmpty
-            value={this.state.relationship}
+            value={value}
             onChange={this.handleChange}
-            input={<BootstrapInput />}
+            input={<Input />}
             renderValue={selected => {
               if (selected.length === 0) {
-                return <em>Emergency Contact</em>;
+                return isNil(placeHolder) ? '' : placeHolder;
               }
               return selected;
             }}
@@ -115,10 +103,16 @@ class RelationshipFilter extends PureComponent {
               },
             }}
           >
-
-            {options.map(name => (
-              <MenuItem key={name} value={name} style={getStyles(name, this)}>
-                {name}
+            { placeHolder
+              && (
+              <MenuItem key={placeHolder} value={placeHolder} style={getStyles(placeHolder, this)}>
+                {placeHolder}
+              </MenuItem>
+              )
+            }
+            {options.map(option => (
+              <MenuItem key={option} value={option} style={getStyles(option, this)}>
+                {option}
               </MenuItem>
             ))}
           </Select>
@@ -128,13 +122,16 @@ class RelationshipFilter extends PureComponent {
   }
 }
 
-RelationshipFilter.propTypes = {
+StyledSelect.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
+  options: PropTypes.array.isRequired,
+  placeHolder: PropTypes.string,
+  handleChange: PropTypes.func,
 };
 
 
 export default compose(
   withTheme(),
   withStyles(styles),
-)(RelationshipFilter);
+)(StyledSelect);

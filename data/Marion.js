@@ -48,8 +48,18 @@ export const patient = {
         {
           coding: [
             {
-              code: 'Emergency Contact',
-              system: 'http://hl7.org/fhir/ValueSet/patient-contactrelationship',
+              display: 'Emergency Contact',
+              system: 'http://terminology.hl7.org/CodeSystem/v2-0131',
+              code: 'C',
+            },
+          ],
+        },
+        {
+          coding: [
+            {
+              code: 'MTH',
+              system: 'http://terminology.hl7.org/CodeSystem/v3-RoleCode',
+              display: 'Mother',
             },
           ],
         },
@@ -88,8 +98,9 @@ export const patient = {
         {
           coding: [
             {
-              code: 'Next of Kin',
-              system: 'http://hl7.org/fhir/ValueSet/patient-contactrelationship',
+              code: 'N',
+              system: 'http://terminology.hl7.org/CodeSystem/v2-0131',
+              display: 'Next of Kin',
             },
           ],
         },
