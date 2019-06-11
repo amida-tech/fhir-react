@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  find, get, has, isNil,
+  has, isNil,
 } from 'lodash';
 import { compose } from 'recompose';
 import { withStyles, withTheme } from '@material-ui/core/styles';
@@ -42,7 +42,7 @@ const styles = theme => ({
 const Input = withStyles(theme => ({
   root: {
     'label + &': {
-      marginTop: theme.spacing.unit * 3,
+      // marginTop: theme.spacing.unit * 3,
     },
   },
   input: {

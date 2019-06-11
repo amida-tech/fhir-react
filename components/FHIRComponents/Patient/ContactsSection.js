@@ -1,9 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { has, isNil, find, get} from 'lodash';
+import {
+  has,
+  isNil,
+  find,
+  get,
+} from 'lodash';
+import { withStyles } from '@material-ui/core';
 import { StyledSelect } from '../../shared';
 import Contacts from '../Contacts';
 import { getRelationshipDisplay } from '../CodeableConcepts';
+import NoContactData from '../../../assets/contacts-no-data.svg';
+
+const styles = {
+  NoContactDataImage: {
+    placeSelf: 'center',
+    placeContent: 'center',
+    display: 'grid',
+  },
+  SelectRelationship: {
+    marginTop: '25rem',
+    marginBottom: '.25rem',
+    height: 'auto',
+  },
+  ContactsContainer: {
+    placeContent: 'center',
+    display: 'grid',
+  },
+};
 
 const relationshipHasSystem = (relationship, system) => {
   let hasRelationshipCode = false;
@@ -56,7 +80,10 @@ class ContactsSection extends React.PureComponent {
 
   componentDidMount() {
     const { contacts } = this.props;
-    const selectValues = getRelationshipsBySystem(contacts, 'http://terminology.hl7.org/CodeSystem/v2-0131');
+    let selectValues = [];
+    if (!isNil(contacts)) {
+      selectValues = getRelationshipsBySystem(contacts, 'http://terminology.hl7.org/CodeSystem/v2-0131');
+    }
     this.setState({
       contacts,
       selectValues,
@@ -69,17 +96,13 @@ class ContactsSection extends React.PureComponent {
     let selectedContacts = [];
     if (event.target.value === placeHolder) {
       selectedContacts = contacts;
-    } else {
+    } else if (!isNil(contacts)) {
       selectedContacts = contacts.filter(contact => {
-        if (has(contact, 'relationship')) {
+        if (!isNil(get(contact, 'relationship'))) {
           const relationship = contact.relationship
             .find(currRelationship => getRelationshipDisplay(currRelationship) === event.target.value);
           return !isNil(relationship);
         }
-        
-        // if (!isNil(find(contact.relationship[0].coding, code => has(code, 'code') && code.code === event.target.value))) {
-        //   return true;
-        // }
         return false;
       });
     }
@@ -91,21 +114,33 @@ class ContactsSection extends React.PureComponent {
 
   render() {
     const { contacts, selectValues } = this.state;
+    const { classes } = this.props;
+    const {
+      ContactsContainer,
+    } = classes;
     return (
-      <>
+      <div>
         <StyledSelect
           options={selectValues}
           handleChange={this.handleChange}
           placeHolder="Select a Relationship"
         />
-        <Contacts contacts={contacts} />
-      </>
+        { (contacts && contacts.length)
+          ? <Contacts contacts={contacts} />
+          : (
+            <div className={ContactsContainer}>
+              <img src={NoContactData} />
+            </div>
+          )
+        }
+      </div>
     );
   }
 }
 
 ContactsSection.propTypes = {
   contacts: PropTypes.array,
+  classes: PropTypes.object,
 };
 
-export default ContactsSection;
+export default withStyles(styles)(ContactsSection);

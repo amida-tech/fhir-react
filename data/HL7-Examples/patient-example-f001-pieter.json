@@ -92,7 +92,20 @@
           "value": "0690383372",
           "use": "mobile"
         }
-      ]
+      ],
+      "address":  {
+        "use": "home",
+        "line": [
+          "123 First Street"
+        ],
+        "city": "Generic City",
+        "postalCode": "11111",
+        "country": "USA"
+      },
+      "organization": {
+        "reference": "Organization/1",
+        "display": "Walt Disney Corporation"
+      }
     }
   ],
   "communication": [

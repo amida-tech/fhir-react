@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="312" height="269.731" viewBox="0 0 312 269.731">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d9e2ec;
+      }
+
+      .cls-2, .cls-3 {
+        fill: none;
+        stroke: #829ab1;
+        stroke-linecap: round;
+        stroke-width: 3px;
+      }
+
+      .cls-2 {
+        stroke-linejoin: round;
+      }
+
+      .cls-3 {
+        stroke-miterlimit: 10;
+        stroke-dasharray: 6 7.5;
+      }
+
+      .cls-4 {
+        fill: #243b53;
+        font-size: 18px;
+        font-family: SourceSansPro-Bold, Source Sans Pro;
+        font-weight: 700;
+      }
+
+      .cls-5 {
+        fill: #486581;
+        font-size: 14px;
+        font-family: SourceSansPro-Regular, Source Sans Pro;
+      }
+    </style>
+  </defs>
+  <g id="Group_8" data-name="Group 8" transform="translate(-114 -428.269)">
+    <path id="Path_15" data-name="Path 15" class="cls-1" d="M401.4,437.636a4.289,4.289,0,0,1-4.078,4.3H353.282c-.073,0-.146,0-.219.006a4.3,4.3,0,0,0,.219,8.594H376.46a4.3,4.3,0,1,1,0,8.594H294.07a4.3,4.3,0,1,1,0-8.594h29.023a4.3,4.3,0,0,0,0-8.594h-8.487a4.3,4.3,0,0,1,.107-8.6H397.1A4.3,4.3,0,0,1,401.4,437.636Z" transform="translate(-50.518 -5.07)"/>
+    <path id="Path_16" data-name="Path 16" class="cls-1" d="M503.5,465.481a4.29,4.29,0,0,1-4.3,4.3h-43.82a4.3,4.3,0,0,1-.219-8.594c.073-.006.146-.006.219-.006h43.82a.722.722,0,0,1,.112.006A4.292,4.292,0,0,1,503.5,465.481Z" transform="translate(-112.245 -15.723)"/>
+    <g id="Group_4" data-name="Group 4" transform="translate(119 489.055)">
+      <path id="Path_17" data-name="Path 17" class="cls-1" d="M170.626,550.659a4.05,4.05,0,0,1-4.056,4.056H70.643a4.056,4.056,0,1,1,0-8.112h46.071a4.056,4.056,0,1,0,0-8.111H79.718a4.056,4.056,0,1,1,0-8.112h77.771a4.056,4.056,0,1,1,0,8.112H146.608a4.056,4.056,0,1,0,0,8.111H166.57A4.057,4.057,0,0,1,170.626,550.659Z" transform="translate(-66.587 -530.38)"/>
+    </g>
+    <g id="Group_5" data-name="Group 5" transform="translate(230.496 542.409)">
+      <path id="Path_18" data-name="Path 18" class="cls-1" d="M500.259,642.141a4.423,4.423,0,0,1-4.431,4.431h-104.8a4.431,4.431,0,1,1,0-8.862h50.33a4.431,4.431,0,1,0,0-8.861H400.946a4.431,4.431,0,1,1,0-8.862h84.961a4.431,4.431,0,1,1,0,8.862H474.021a4.431,4.431,0,0,0,0,8.861h21.808A4.432,4.432,0,0,1,500.259,642.141Z" transform="translate(-323.582 -612.987)"/>
+      <path id="Path_19" data-name="Path 19" class="cls-1" d="M366.19,647.937a4.424,4.424,0,0,1-4.431,4.431H349.872a4.431,4.431,0,1,1,0-8.862h11.887A4.431,4.431,0,0,1,366.19,647.937Z" transform="translate(-313.441 -618.781)"/>
+    </g>
+    <g id="Group_7" data-name="Group 7" transform="translate(59.89 89)">
+      <g id="Group_6" data-name="Group 6">
+        <path id="Path_12" data-name="Path 12" class="cls-2" d="M307.008,519.661l-34.016,38.008-18.833-13.062Z" transform="translate(-73.459 -130.999)"/>
+        <path id="Path_13" data-name="Path 13" class="cls-2" d="M288.438,564.835l-11.371,5.37,1.039-12.536,34.016-38.008Z" transform="translate(-78.572 -130.999)"/>
+        <path id="Path_14" data-name="Path 14" class="cls-2" d="M310.539,577.9l-18.833-13.062,23.684-45.174Z" transform="translate(-81.84 -130.999)"/>
+      </g>
+      <path id="Path_20" data-name="Path 20" class="cls-3" d="M201.7,591.515a43.785,43.785,0,0,1-24.484,21.49c-4.464,1.551-9.511,2.331-13.834.422s-7.326-7.279-5.31-11.553a8.1,8.1,0,0,1,8.068-4.274,10.644,10.644,0,0,1,7.778,5.26c3.531,5.931,1.46,13.955-3.181,19.064-3.3,3.628-19.815,8.788-19.815,8.788l-3.748,1.029" transform="translate(-5.884 -147.039)"/>
+    </g>
+    <text id="a-typography-primary-18" class="cls-4" transform="translate(160 641)"><tspan x="0" y="0">Oops! No contacts available</tspan></text>
+    <text id="a-typography-secondary-14" class="cls-5" transform="translate(270 676)"><tspan x="-134.05" y="0">This patient does not have any contacts listed.</tspan><tspan x="-155.057" y="18">Select a new contact party from the dropdown menu.</tspan></text>
+  </g>
+</svg>

@@ -13,7 +13,7 @@ import ContactsSection from './ContactsSection';
 import Header from './Header';
 
 const styles = {
-  card: {
+  PatientCard: {
     minHeight: 600,
     inWidth: 200,
     maxWidth: 400,
@@ -26,11 +26,8 @@ const styles = {
     boxShadow: '2px 3px 10px 0px rgba(188, 204, 220)',
     overflowY: 'scroll',
   },
-  tabsContainer: {
-    gridRow: 2,
-    zIndex: 0,
-  },
-  contentContainer: {
+  PatientContentContainer: {
+    display: 'grid',
     gridRow: 3,
   },
 };
@@ -52,10 +49,10 @@ class Patient extends React.PureComponent {
     const { classes, patient } = this.props;
     const { tabValue } = this.state;
     const {
-      card,
-      contentContainer,
+      PatientCard,
+      PatientContentContainer,
     } = classes;
-    const { contact, name } = patient;
+    const { contact, name, photo } = patient;
     const tabLabels = [
       'Overview',
       'Contacts',
@@ -63,7 +60,9 @@ class Patient extends React.PureComponent {
 
     const tabContent = [
       (
-        <OverviewSection />
+        <OverviewSection
+          {...patient}
+        />
       ),
       (
         <ContactsSection
@@ -73,16 +72,17 @@ class Patient extends React.PureComponent {
     ];
 
     return (
-      <div className={card}>
+      <div className={PatientCard}>
         <Header
           name={name}
+          photo={photo && photo[0]}
         />
         <CenteredTabs
           tabLabels={tabLabels}
           value={tabValue}
           handleChange={this.handleTabSelect}
         />
-        <div className={contentContainer}>
+        <div className={PatientContentContainer}>
           { tabContent[tabValue] }
         </div>
       </div>

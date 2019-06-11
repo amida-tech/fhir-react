@@ -2,11 +2,11 @@ import {
   Patient,
   HumanName,
   Address,
+  Contacts,
   ContactPoint,
   Contact,
 } from './FHIRComponents';
-import Contacts from './FHIRComponents/Patient/Contacts';
-import PatientOverview from './FHIRComponents/Patient/Overview';
+import PatientOverview from './FHIRComponents/Patient/OverviewSection';
 
 import {
   StyledSelect,
@@ -14,7 +14,7 @@ import {
   InfoExpansion,
   DataRow,
   CenteredTabs,
-} from './utils';
+} from './shared';
 
 export {
   Patient,

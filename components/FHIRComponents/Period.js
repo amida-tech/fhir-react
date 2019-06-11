@@ -8,7 +8,7 @@ import moment from 'moment';
 import { get, has } from 'lodash';
 import { Typography } from '@material-ui/core';
 
-const defaultStyles = theme => ({
+const styles = theme => ({
   Period: {
     fontFamily: 'Source Sans Pro',
     fontSize: '.9rem',
@@ -49,4 +49,4 @@ Period.propTypes = {
   classOverride: PropTypes.object,
 };
 
-export default withStyles(defaultStyles)(Period);
+export default withStyles(styles)(Period);

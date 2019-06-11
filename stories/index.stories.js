@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import { select, object, withKnobs } from '@storybook/addon-knobs';
 import { patient as Marion, fhirDescriptions } from '../data/Marion';
 import {
-  Patient, HumanName, Address, Contact,
+  Patient, HumanName, Address, Contacts,
 } from '../components/FHIRComponents';
 import {
   StyledSelect,
@@ -15,6 +15,7 @@ import storybookTheme from '../themes/xd';
 import DefaultTheme from '../themes/default';
 
 storiesOf('Patient', module)
+  .addDecorator(withKnobs)
   .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
   .add('Default Theme', () => {
     const theme = createMuiTheme(DefaultTheme);
@@ -40,6 +41,20 @@ storiesOf('Patient', module)
         <MuiThemeProvider theme={theme}>
           <Patient
             patient={select('Patient', patientOptions, patientExamples.PatientPieter, 'Patient')}
+            fhirDescriptions={fhirDescriptions}
+          />
+        </MuiThemeProvider>
+      </div>
+    );
+  })
+  .add('No Contacts Data', () => {
+    const theme = createMuiTheme(DefaultTheme);
+    const { PatientLink2 } = patientExamples;
+    return (
+      <div>
+        <MuiThemeProvider theme={theme}>
+          <Patient
+            patient={object(Patient, PatientLink2)}
             fhirDescriptions={fhirDescriptions}
           />
         </MuiThemeProvider>
@@ -72,7 +87,7 @@ storiesOf('Default Address', module)
       <div>
         <MuiThemeProvider theme={theme}>
           <Address
-            address={object('address', get(Marion, 'address'))}
+            address={object('address', get(Marion, 'address[0]'))}
             patient={object('Patient', Marion)}
             info={object('fhirDescriptions', fhirDescriptions)}
           />
@@ -96,7 +111,7 @@ storiesOf('Default Relationship Filter', module)
       <div>
         <MuiThemeProvider theme={theme}>
           <StyledSelect
-            value="PlaceHolder"
+            placeHolder="PlaceHolder"
             options={contacts}
           />
         </MuiThemeProvider>
@@ -108,11 +123,12 @@ storiesOf('Patient - Eve Everywoman', module)
   .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
   .add('Contacts', () => {
     const theme = createMuiTheme(DefaultTheme);
+
     return (
       <div style={{ backgroundColor: '#fff', height: '600px' }}>
         <MuiThemeProvider theme={theme}>
-          <Contact
-            contact={patientExamples.PatientPieter.contact}
+          <Contacts
+            contacts={patientExamples.PatientPieter.contact}
           />
         </MuiThemeProvider>
       </div>

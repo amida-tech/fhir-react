@@ -36,30 +36,33 @@ class Telecom extends React.PureComponent {
           telecomByRank.map(contactPoints => {
             const label = has(contactPoints, '[0].system') ? contactPoints[0].system : undefined;
             return (
-              <div key={`telecom_${uuidv4()}`}>
-                {
-                  (
-                    <DataRow
-                      label={(
-                        <div className={classes.heading} key={`telecom_label_${uuidv4()}`}>
-                          <Typography variant="h4">
-                            {label}
-                          </Typography>
-                        </div>
-                      )}
-                    />
-                  )
-                }
-                {
-                  contactPoints
-                  && contactPoints.map(contactPoint => (
-                    <ContactPoint
-                      key={`contact_point_${uuidv4()}`}
-                      contactPoint={contactPoint}
-                    />
-                  ))
-                }
-              </div>
+              !!contactPoints.length
+              && (
+                <div key={`telecom_${uuidv4()}`}>
+                  {
+                    (
+                      <DataRow
+                        label={(
+                          <div className={classes.heading} key={`telecom_label_${uuidv4()}`}>
+                            <Typography variant="h4">
+                              {label}
+                            </Typography>
+                          </div>
+                        )}
+                      />
+                    )
+                  }
+                  {
+                    contactPoints
+                    && contactPoints.map(contactPoint => (
+                      <ContactPoint
+                        key={`contact_point_${uuidv4()}`}
+                        contactPoint={contactPoint}
+                      />
+                    ))
+                  }
+                </div>
+              )
             );
           })
         }

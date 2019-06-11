@@ -11,17 +11,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
+import InfoChip from './InfoChip';
 
 const defaultStyles = theme => ({
-  infoExpansionCard: {
-    backgroundColor: theme.palette.tertiary.light,
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '1rem',
-    borderRadius: '5px',
-    color: theme.palette.primary.light,
-    margin: '1rem',
-  },
+
   infoExpansionCardTitle: {
     fontWeight: 'bold',
     color: theme.palette.primary.light,
@@ -61,7 +54,7 @@ class InfoExpansion extends PureComponent {
     const { open } = this.state;
     return (
       <div className={classes.infoExpansion}>
-        <div className={classes.infoExpansionCard}>
+        <InfoChip>
           <div className={classes.infoExpansionCardSubject}>
             <Typography variant="h4">
               <div className={classes.infoExpansionCardTitle}>
@@ -83,7 +76,7 @@ class InfoExpansion extends PureComponent {
               : <FontAwesomeIcon icon={faChevronDown} className="fas fa-chevron-down fa fa-2x" />
                 }
           </Button>
-        </div>
+        </InfoChip>
         {open && children}
       </div>
     );

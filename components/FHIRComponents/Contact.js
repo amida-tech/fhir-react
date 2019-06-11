@@ -1,35 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
 import uuidv4 from 'uuid/v4';
-import HumanName from './HumanName';
 import Organization from './Organization';
+import HumanName from './HumanName';
+import Reference from './Reference';
 import Period from './Period';
 import { DataRow, InfoExpansion } from '../shared';
 import { Relationship } from './CodeableConcepts';
 import Telecom from './Telecom';
+import Address from './Address';
 
 const styles = theme => ({
 
   header: {
-    '& h4': {
-      color: get(theme, 'palette.primary.light'),
-      fontFamily: get(theme, 'typography.body2.fontFamily'),
-    },
+    color: get(theme, 'palette.primary.light'),
+    fontFamily: get(theme, 'typography.body2.fontFamily'),
   },
   subHeader: {
     color: get(theme, 'palette.primary.light'),
+    marginLeft: '1rem',
   },
   value: {
-    '& h5': {
-      color: get(theme, 'palette.primary.dark'),
-      fontWeight: 500,
-      fontFamily: get(theme, 'typography.body1.fontFamily'),
-    },
+    color: get(theme, 'palette.primary.dark'),
+    fontWeight: 500,
+    fontFamily: get(theme, 'typography.body1.fontFamily'),
   },
   subtitle: {
     color: get(theme, 'palette.primary.light'),
@@ -38,9 +36,17 @@ const styles = theme => ({
 });
 
 class Contact extends React.PureComponent {
+
   render() {
     const { contact, classes } = this.props;
-    const { relationship, gender, telecom } = contact;
+    const {
+      relationship,
+      gender,
+      telecom,
+      address,
+      organization,
+    } = contact;
+
     return (
       <div className={classes.root}>
         <InfoExpansion
@@ -52,22 +58,20 @@ class Contact extends React.PureComponent {
           { gender && (
             <DataRow
               label={(
-                <div className={classes.header}>
-                  <Typography variant="h4">
-                    {'Gender'}
-                  </Typography>
-                </div>
+                <Typography className={classes.header} variant="h4">
+                  {'Gender'}
+                </Typography>
               )}
               value={(
-                <div className={classes.value}>
-                  <Typography variant="h5">
-                    {gender}
-                  </Typography>
-                </div>
+                <Typography className={classes.value} variant="h5">
+                  {gender}
+                </Typography>
               )}
             />
           ) }
           { telecom && <Telecom telecom={telecom} /> }
+          { address && <Address address={address} />}
+          { organization && <Reference reference={organization} label="Organization" />}
         </InfoExpansion>
       </div>
     );

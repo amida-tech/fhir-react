@@ -3,7 +3,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  find, get, replace,
+  find, get, replace, isNil,
 } from 'lodash';
 import uuidv4 from 'uuid/v4';
 import { withStyles } from '@material-ui/core/styles';
@@ -72,6 +72,12 @@ class HumanName extends PureComponent {
   }
 
   menuGenerator(nameRecords, classes) {
+    if (isNil(get(this.props, 'humanName'))) {
+      return (
+        <>
+        </>
+      );
+    }
     const fullNames = get(this.props, 'humanName').map(nameRecord => nameRecord.text || HumanName.nameConcatenator(nameRecord));
     const menuList = nameRecords.map((nameRecord, index) => (
       <DataRow
