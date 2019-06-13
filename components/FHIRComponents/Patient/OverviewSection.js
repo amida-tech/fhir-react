@@ -30,8 +30,6 @@ const OverviewSection = () => ({
       link,
     } = this.props;
     const { OverviewContainer } = classes;
-    console.log(">>>>???")
-    console.log(address)
     return (
       <>
         <div className={OverviewContainer}>
