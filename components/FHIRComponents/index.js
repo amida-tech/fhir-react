@@ -8,6 +8,7 @@ import Telecom from './Telecom';
 import Period from './Period';
 import { Relationship } from './CodeableConcepts';
 import Patient from './Patient';
+import Note from './Note';
 
 export {
   Contact,
@@ -20,4 +21,5 @@ export {
   Period,
   Relationship,
   Patient,
+  Note
 };

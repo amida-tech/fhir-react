@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { has } from 'lodash';
 import { compose } from 'recompose';
@@ -35,7 +35,7 @@ const styles = theme => ({
   },
 });
 
-class Header extends React.PureComponent {
+class Header extends PureComponent {
   render() {
     const { classes, name, photo } = this.props;
     const {
