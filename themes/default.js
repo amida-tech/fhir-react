@@ -49,5 +49,13 @@ export default ({
       fontFamily: 'Source Sans Pro',
       textTransform: 'capitalize',
     },
+    button2: {
+      // TODO: Make this bold
+      fontFamily: 'Helvetica',
+      fontSize: '1rem',
+      backgroundColor: 'transparent',
+      border: 'none',
+      padding: '0'
+    }
   },
 });

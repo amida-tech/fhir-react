@@ -4,8 +4,9 @@ import { storiesOf } from '@storybook/react';
 import { get } from 'lodash';
 import { select, object, withKnobs } from '@storybook/addon-knobs';
 import { patient as Marion, fhirDescriptions } from '../data/Marion';
+import Annotation__Note__DrSteveBerule from '../data/Annotation/DrSteveBerule'
 import {
-  Patient, HumanName, Address, Contacts,
+  Patient, HumanName, Address, Contacts, Note
 } from '../components/FHIRComponents';
 import {
   StyledSelect,
@@ -60,6 +61,18 @@ storiesOf('Patient', module)
         </MuiThemeProvider>
       </div>
     );
+  });
+
+storiesOf('Note', module)
+  .addParameters({ options: { theme: storybookTheme }, viewport: { defaultViewport: 'iphone6' } })
+  .add('Dr. Steve Berule', () => {
+    const theme = createMuiTheme(DefaultTheme);
+
+    return (
+      <MuiThemeProvider theme={theme}>
+        <Note note={Annotation__Note__DrSteveBerule} />
+      </MuiThemeProvider>
+    )
   });
 
 storiesOf('Default HumanName', module)

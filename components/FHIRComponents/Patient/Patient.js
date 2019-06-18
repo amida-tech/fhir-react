@@ -1,7 +1,7 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/forbid-prop-types */
 
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   withStyles, withTheme,
@@ -33,7 +33,7 @@ const styles = {
 };
 
 
-class Patient extends React.PureComponent {
+class Patient extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
